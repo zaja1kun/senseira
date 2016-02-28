@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senseira : Sign In</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/reset.css">
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="css/core.css">
+    <script type="text/javascript" src="scripts/frameworks/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap/bootstrap.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Senseira</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <!-- Partial view place -->
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#">
+                        Назад
+                    </a>
+                </li>
+            </ul>
+            <!-- Partial view place -->
+        </div>
+    </div>
+</nav>
+<div class="container main-container body-content">
+    <!-- Partial view place -->
+    <div id="signInView" class="sign-in-container clearfix">
+
+        <div class="col-md-4 panel-container" data-bind="css: { 'active-panel-container' : isSignInState() }">
+            <div class="panel panel-default">
+                <div class="panel-heading">Введите логин и пароль что бы войти:</div>
+                <div class="panel-body">
+
+                    <!-- ko with: signInState -->
+                    <form class="form-horizontal" role="form" data-bind="submit: $parent.beforeSubmit">
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginInput" class="control-label">Логин</label>
+                            <div class="col-sm-12">
+                                <input type="text"
+                                       class="form-control"
+                                       id="loginInput"
+                                       placeholder="Логин"
+                                       data-bind="value: login"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordInput" class="control-label">Пароль</label>
+                            <div class="col-sm-12">
+                                <input type="password"
+                                       class="form-control"
+                                       id="passwordInput"
+                                       placeholder="Пароль"
+                                       data-bind="value: password"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"
+                                               data-bind="checked: rememberMe"/>
+                                        Запомнить меня
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group buttons-group">
+                            <div class="col-sm-3 col-xs-4 col-lg-4">
+                                <button type="submit" class="btn btn-primary">Войти</button>
+                            </div>
+                            <div class="col-sm-9 col-xs-8 col-lg-8 clearfix">
+                                <button type="button"
+                                        class="btn btn-default pull-right"
+                                        data-bind="click: $parent.restorePassword">Восстановить пароль</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /ko -->
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 panel-container" data-bind="css: { 'active-panel-container' : isPasswordRestoringState() }">
+            <div class="panel panel-default">
+                <div class="panel-heading">Помощь в восстановлении пароля:</div>
+                <div class="panel-body">
+
+                    <!-- ko with: passwordRestoringState -->
+                    <form class="form-horizontal" role="form">
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="restoring-section"
+                             data-bind="css: { 'active-section' : !isMessageSent() }">
+
+                            <p>
+                                Введите свой логин. После нажатия на кнопку "Отправить сообщение" код будет выслан вам на элекронную почту.
+                            </p>
+                            <div class="form-group">
+                                <label class="control-label" for="restoringLoginInput">Логин</label>
+                                <div class="col-sm-12">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="restoringLoginInput"
+                                           placeholder="Логин"
+                                           data-bind="value: login"/>
+                                </div>
+                            </div>
+                            <div class="form-group buttons-group">
+                                <div class="col-sm-5 col-xs-5 col-lg-5 clearfix">
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            data-bind="click: $parent.sendMessage">
+                                        Отправить сообщение
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="restoring-section"
+                             data-bind="css: { 'active-section' : isMessageSent() }">
+
+                            <p>
+                                Введите код, полученный по электронной почте.
+                            </p>
+                            <div class="form-group">
+                                <label class="control-label" for="codeInput" >Код</label>
+                                <div class="col-sm-12">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="codeInput"
+                                           placeholder="Код"
+                                           data-bind="value: code"/>
+                                </div>
+                            </div>
+                            <div class="form-group buttons-group">
+                                <div class="col-sm-7 col-xs-7 col-lg-7">
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            data-bind="click: $parent.confirmCode">Подтвердить код</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- /ko -->
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 panel-container" data-bind="css: { 'active-panel-container' : isPasswordChangingState() }">
+            <div class="panel panel-default">
+                <div class="panel-heading">Смена пароля:</div>
+                <div class="panel-body">
+
+                    <!-- ko with: passwordChangingState -->
+                    <form class="form-horizontal" role="form" data-bind="submit: $parent.changePassword">
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <input type="hidden" data-bind="value: login"/>
+                        <div class="form-group">
+                            <label for="changePasswordInput" class="control-label">Новый пароль</label>
+                            <div class="col-sm-12">
+                                <input type="password"
+                                       class="form-control"
+                                       id="changePasswordInput"
+                                       placeholder="Новый пароль"
+                                       data-bind="value: password"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPasswordInput" class="control-label">Подтверждение пароля</label>
+                            <div class="col-sm-12">
+                                <input type="password"
+                                       class="form-control"
+                                       id="confirmPasswordInput"
+                                       placeholder="Повторите пароль"
+                                       data-bind="value: passwordConfirmation"/>
+                            </div>
+                        </div>
+                        <div class="form-group buttons-group">
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-primary">Сменить пароль</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /ko -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Partial view place -->
+    <footer class="panel-footer">
+        <p class="text-center">
+            Сайт спроектирован и воплощён в жизнь шестью студентами с лучшими намерениями</br>
+            BuddhaSoft &copy; Все права защищены.</br>
+            Текущая версия v0.0.0
+        </p>
+    </footer>
+</div>
+<!-- Body script place -->
+<script type="text/javascript" src="scripts/custom/plugins.js"></script>
+<script type="text/javascript" src="scripts/senseira/signIn.js"></script>
+<!-- Body script place -->
+</body>
+</html>

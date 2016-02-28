@@ -11,3 +11,5 @@
 
 /front-end/node_modules
 /front-end/node_modules/*
+/front-end/.idea
+/front-end/.idea/*

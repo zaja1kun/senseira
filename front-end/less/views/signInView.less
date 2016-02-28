@@ -1,0 +1,21 @@
+@import "../shared/constants";
+@import "../shared/customMixins";
+
+@panelHeight: 310px;
+
+#signInView {
+    &.sign-in-container {
+        padding: @mainOffset;
+
+        .control-label-mixin();
+        .active-panel-container-mixin();
+
+        .restoring-section {
+            display: none;
+
+            &.active-section {
+                display: block;
+            }
+        }
+    }
+}
