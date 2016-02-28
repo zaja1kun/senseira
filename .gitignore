@@ -1,0 +1,10 @@
+# General rules
+
+
+# Back-end rules
+
+/back-end/**/*.pyc
+/back-end/**/*.sqlite
+
+
+# Front-end rules
