@@ -1,0 +1,19 @@
+@import "../shared/constants";
+@import "../shared/customMixins";
+
+@helpPanelHeight: 620px;
+
+#signUpView {
+    &.sign-up-container {
+        padding: @mainOffset;
+
+        .control-label-mixin();
+        .active-panel-container-mixin();
+
+        @media screen and (min-width: @mediumScreenWidth) {
+            .help-panel {
+                height: @helpPanelHeight;
+            }
+        }
+    }
+}

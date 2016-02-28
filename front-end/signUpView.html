@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senseira : Sign Up</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/reset.css">
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="css/core.css">
+    <script type="text/javascript" src="scripts/frameworks/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap/bootstrap.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Senseira</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <!-- Partial view place -->
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#">
+                        Назад
+                    </a>
+                </li>
+            </ul>
+            <!-- Partial view place -->
+        </div>
+    </div>
+</nav>
+<div class="container main-container body-content">
+    <!-- Partial view place -->
+    <div id="signUpView" class="sign-up-container clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Введите данные для регистрации:</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" data-bind="submit: beforeSubmit">
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="nameInput" class="control-label">Имя</label>
+                            <div class="col-sm-12">
+                                <input type="text"
+                                       class="form-control"
+                                       id="nameInput"
+                                       placeholder="Имя"
+                                       data-bind="value: name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="surnameInput" class="control-label">Фамилия</label>
+                            <div class="col-sm-12">
+                                <input type="text"
+                                       class="form-control"
+                                       id="surnameInput"
+                                       placeholder="Фамилия"
+                                       data-bind="value: surname"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput" class="control-label">Адрес электронной почты</label>
+                            <div class="col-sm-12">
+                                <input type="email"
+                                       class="form-control"
+                                       id="emailInput"
+                                       placeholder="Эл. почта"
+                                       data-bind="value: email"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginInput" class="control-label">Логин</label>
+                            <div class="col-sm-12">
+                                <input type="text"
+                                       class="form-control"
+                                       id="loginInput"
+                                       placeholder="Логин"
+                                       data-bind="value: login"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="control-label">Пароль</label>
+                            <div class="col-sm-12">
+                                <input type="password"
+                                       class="form-control"
+                                       id="inputPassword"
+                                       placeholder="Пароль"
+                                       data-bind="value: password"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputConfirmPassword" class="control-label">Подтверждение пароля</label>
+                            <div class="col-sm-12">
+                                <input type="password"
+                                       class="form-control"
+                                       id="inputConfirmPassword"
+                                       placeholder="Повторите пароль"
+                                       data-bind="value: passwordConfirmation"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-bind="checked: isTeacherAccountRequired"> Получить преподавательский аккаунт
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-bind="checked: rememberMe"> Запомнить меня
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-12 panel-container" data-bind="css: { 'active-panel-container': isTeacherAccountRequired() }">
+            <div class="panel panel-default help-panel">
+                <div class="panel-heading">Помощь в получении преподавательского аккаунта:</div>
+                <div class="panel-body">
+                    <p>
+                        Для того что бы получить преподовательский аккаунт со всеми его привилегиями
+                        необходимо сделать следующее:
+                    </p>
+                    <ul class="numeric-list">
+                        <li class="numeric-list-item">Написать запрос на электронную почту проета Senseira:
+                            <a href="mailto:senseira.team@gmail.com">senseira.team@gmail.com</a>,
+                            в котором указать максимум информации, подтверждающей что вы преподаватель.
+                        </li>
+                        <li class="numeric-list-item">
+                            Для подтверждения вашей личности может потребоваться личная встреча.
+                        </li>
+                        <li class="numeric-list-item">
+                            После проверки коммандой Senseira будет создан преподавательский аккаунт на ваше имя, а
+                            логин и пароль для входа будут высланы вам на электронную почту.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partial view place -->
+    <footer class="panel-footer">
+        <p class="text-center">
+            Сайт спроектирован и воплощён в жизнь шестью студентами с лучшими намерениями</br>
+            BuddhaSoft &copy; Все права защищены.</br>
+            Текущая версия v0.0.0
+        </p>
+    </footer>
+</div>
+<!-- Body script place -->
+<script type="text/javascript" src="scripts/custom/plugins.js"></script>
+<script type="text/javascript" src="scripts/senseira/signUp.js"></script>
+<!-- Body script place -->
+</body>
+</html>
