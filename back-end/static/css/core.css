@@ -1,0 +1,28 @@
+.main-container{background-color:#f0f0f0;padding:50px 0 0 0}
+.numeric-list{padding-left:15px}.numeric-list .numeric-list-item{display:list-item;list-style:decimal}
+.activatable-element{display:none}.activatable-element.active{display:block}
+
+
+
+.btn:focus,.btn:active,.btn:active:focus{outline:0}
+@media screen and (max-width:768px){.navbar .navbar-collapse .navbar-nav{float:none !important}}
+.carousel .carousel-caption.carousel-caption-top{bottom:320px}
+@media screen and (max-width:768px){.carousel .carousel-caption{font-size:10px}.carousel .carousel-caption.carousel-caption-top{bottom:50px}}
+
+
+
+#greetingView .description .description-text{padding:0 20px 0 20px;font-size:18px}
+#greetingView .description .description-list{box-sizing:border-box;display:inline-block;width:80%;padding:0 50px;font-size:15px;line-height:25px}#greetingView .description .description-list .list-item{display:list-item;list-style:disc}
+#greetingView .description .description-image-container{display:inline-block;padding:10px 0 10px 0;vertical-align:top}#greetingView .description .description-image-container .description-image:hover{-webkit-box-shadow:0 0 13px 1px #39aea8;-moz-box-shadow:0 0 13px 1px #39aea8;box-shadow:0 0 13px 1px #39aea8}
+@media screen and (max-width:992px){#greetingView .description .description-list{width:100%;padding:0 20px 0 40px;line-height:22px} #greetingView .description .description-image-container{display:block;text-align:center}#greetingView .description .description-image-container .description-image{display:inline-block}}
+#greetingView .system-work-examples{padding:20px;text-align:center}#greetingView .system-work-examples .example{display:inline-block;padding:0 30px 0 30px}#greetingView .system-work-examples .example .example-image.img-thumbnail{background-color:#22406e}
+#greetingView .system-work-examples .example .example-image:hover{transform:scale(1.15, 1.15)}
+@media screen and (max-width:992px){#greetingView .system-work-examples .example{display:block;padding-top:20px}}
+
+#signInView.sign-in-container{padding:20px}#signInView.sign-in-container .control-label{padding-left:15px;padding-top:0}
+#signInView.sign-in-container .panel-container{display:none}#signInView.sign-in-container .panel-container.active-panel-container{display:block}
+#signInView.sign-in-container .restoring-section{display:none}#signInView.sign-in-container .restoring-section.active-section{display:block}
+
+#signUpView.sign-up-container{padding:20px}#signUpView.sign-up-container .control-label{padding-left:15px;padding-top:0}
+#signUpView.sign-up-container .panel-container{display:none}#signUpView.sign-up-container .panel-container.active-panel-container{display:block}
+@media screen and (min-width:992px){#signUpView.sign-up-container .help-panel{height:620px}}
