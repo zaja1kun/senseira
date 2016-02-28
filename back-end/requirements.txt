@@ -1,0 +1,4 @@
+Django==1.8.6
+django-jet==0.1.4
+feedparser==5.2.1
+wheel==0.29.0
