@@ -1,0 +1,22 @@
+.blue-image-shadow() {
+    -webkit-box-shadow: 0 0 13px 1px rgba(57,174,168,1);
+    -moz-box-shadow: 0 0 13px 1px rgba(57,174,168,1);
+    box-shadow: 0 0 13px 1px rgba(57,174,168,1);
+}
+
+.control-label-mixin() {
+    .control-label {
+        padding-left: 15px;
+        padding-top: 0;
+    }
+}
+
+.active-panel-container-mixin() {
+    .panel-container {
+        display: none;
+
+        &.active-panel-container {
+            display: block;
+        }
+    }
+}

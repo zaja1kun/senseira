@@ -1,0 +1,89 @@
+@import "../shared/constants";
+@import "../shared/customMixins";
+
+@listOffset: 50px;
+@exampleOffset: 30px;
+@descriptionTextFontSize: 18px;
+@descriptionListFontSize: 15px;
+@descriptionListLineHeight: 25px;
+
+#greetingView {
+    .description {
+        .description-text {
+            padding: 0 @mainOffset 0 @mainOffset;
+            font-size: @descriptionTextFontSize;
+        }
+
+        .description-list {
+            box-sizing: border-box;
+            display: inline-block;
+            width: 80%;
+
+            padding: 0 @listOffset;
+            font-size: @descriptionListFontSize;
+            line-height: @descriptionListLineHeight;
+
+            .list-item {
+                display: list-item;
+                list-style: disc;
+            }
+        }
+
+        .description-image-container {
+            display: inline-block;
+            padding: 10px 0 10px 0;
+            vertical-align: top;
+
+            .description-image {
+                &:hover {
+                    .blue-image-shadow();
+                }
+            }
+        }
+
+        @media screen and (max-width: @mediumScreenWidth){
+            .description-list {
+                width: 100%;
+                padding: 0 @listOffset - 30px 0 @listOffset - 10px;
+
+                line-height: @descriptionListLineHeight - 3px;
+            }
+
+            .description-image-container {
+                display: block;
+                text-align: center;
+
+                .description-image {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    .system-work-examples {
+        padding: @mainOffset;
+        text-align: center;
+
+        .example {
+            display: inline-block;
+            padding: 0 @exampleOffset 0 @exampleOffset;
+
+            .example-image {
+                &.img-thumbnail {
+                    background-color: @mainBlueColor;
+                }
+
+                &:hover {
+                    transform: scale(1.15, 1.15);
+                }
+            }
+        }
+
+        @media screen and (max-width: @mediumScreenWidth){
+            .example {
+                display: block;
+                padding-top: @exampleOffset - 10;
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+@import "constants";
+
+.btn:focus,
+.btn:active,
+.btn:active:focus{
+    outline: 0;
+}
+
+.navbar {
+    @media screen and (max-width: @smallScreenWidth) {
+        .navbar-collapse {
+            .navbar-nav {
+                float: none !important;
+            }
+        }
+    }
+}
+
+.carousel {
+    .carousel-caption {
+        &.carousel-caption-top {
+            bottom: 320px;
+        }
+    }
+
+    @media screen and (max-width: @smallScreenWidth) {
+        .carousel-caption {
+            font-size: 10px;
+
+            &.carousel-caption-top {
+                bottom: 50px;
+            }
+        }
+    }
+}
