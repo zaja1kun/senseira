@@ -8,3 +8,6 @@
 
 
 # Front-end rules
+
+/front-end/node_modules
+/front-end/node_modules/*
