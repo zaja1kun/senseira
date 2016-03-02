@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senseira : Greeting</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap/bootstrap-theme.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/core.css' %}">
+    <script type="text/javascript" src="{% static 'scripts/frameworks/jquery-2.2.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/frameworks/knockout-3.4.0.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/bootstrap/bootstrap.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Senseira</a>
+            </div>
+            <div class="collapse navbar-collapse">
+
+                {% block navbar_buttons %}{% endblock %}
+
+            </div>
+        </div>
+    </nav>
+    <div class="container main-container body-content">
+
+        {% block  body_block %}{% endblock %}
+
+        <footer class="panel-footer">
+            <p class="text-center">
+                Сайт спроектирован и воплощён в жизнь шестью студентами с лучшими намерениями</br>
+                BuddhaSoft &copy; Все права защищены.</br>
+                Текущая версия v0.0.0
+            </p>
+        </footer>
+    </div>
+
+    {% block body_script %}{% endblock %}
+
+</body>
+</html>

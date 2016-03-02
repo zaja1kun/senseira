@@ -4,7 +4,7 @@
 # Back-end rules
 
 /back-end/**/*.pyc
-/back-end/**/*.sqlite
+/back-end/**/*.sqlite3
 
 
 # Front-end rules
