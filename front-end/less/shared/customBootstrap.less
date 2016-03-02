@@ -19,7 +19,17 @@
 .carousel {
     .carousel-caption {
         &.carousel-caption-top {
-            bottom: 320px;
+            bottom: 270px;
+        }
+    }
+
+    @media screen and (max-width: @mediumScreenWidth) {
+        .carousel-caption {
+            font-size: 15px;
+
+            &.carousel-caption-top {
+                bottom: 170px;
+            }
         }
     }
 
@@ -29,6 +39,14 @@
 
             &.carousel-caption-top {
                 bottom: 50px;
+            }
+        }
+    }
+
+    @media screen and (max-width: @tinyScreenWidth) {
+        .carousel-caption {
+            &.carousel-caption-top {
+                bottom: 20px;
             }
         }
     }
