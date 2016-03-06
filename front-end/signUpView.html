@@ -33,6 +33,8 @@
     </div>
 </nav>
 <div class="container main-container body-content">
+    <ul id="alertList">
+    </ul>
 
     <!-- Partial view place -->
     <div id="signUpView" class="sign-up-container clearfix">
@@ -120,15 +122,6 @@
                                 <button type="submit" class="btn btn-default">Зарегистрироваться</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <a href="" data-bind="click: isTeacherAccountRequired">Как получить преподавательский аккаунт?</a>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -162,7 +155,6 @@
     <!-- Partial view place -->
     <footer class="panel-footer">
         <p class="text-center">
-            Сайт спроектирован и воплощён в жизнь шестью студентами с лучшими намерениями</br>
             BuddhaSoft &copy; Все права защищены.</br>
             Текущая версия v0.0.0
         </p>
@@ -170,6 +162,8 @@
 </div>
 <!-- Body script place -->
 <script type="text/javascript" src="scripts/custom/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom/initialAlerting.js"></script>
+<script type="text/javascript" src="scripts/senseira/baseForm.js"></script>
 <script type="text/javascript" src="scripts/senseira/signUp.js"></script>
 <!-- Body script place -->
 </body>

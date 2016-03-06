@@ -4,15 +4,15 @@ Senseira.constructors = Senseira.constructors || {};
 (function(ko, $) {
     'use strict';
 
-    function SignInViewModel() {
+    function InsidePasswordChangingViewModel() {
         var self = this;
 
         if (Senseira.constructors.BaseFormViewModel) {
             Senseira.constructors.BaseFormViewModel.call(self);
         }
-        self.login = ko.observable('');
-        self.password = ko.observable('');
-        self.rememberMe = ko.observable(false);
+        self.currentPassword = ko.observable('');
+        self.newPassword = ko.observable('');
+        self.passwordConfirmation = ko.observable('');
 
         self.isValid = function() {
             return true;
@@ -22,5 +22,5 @@ Senseira.constructors = Senseira.constructors || {};
         };
     }
 
-    ko.applyBindings(new SignInViewModel());
+    ko.applyBindings(new InsidePasswordChangingViewModel());
 })(ko, jQuery);
