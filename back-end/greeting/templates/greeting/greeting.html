@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block title %}
+<title>Senseira : Greeting</title>
+{% endblock title %}
+
 {% block navbar_buttons %}
 <ul class="nav navbar-nav pull-right">
     <li>
-        <a href="#">
+        <a href="{% url 'account_signup' %}">
             Регистрация
         </a>
     </li>
     <li>
-        <a href="#">
+        <a href="{% url 'account_login' %}">
             Вход
         </a>
     </li>

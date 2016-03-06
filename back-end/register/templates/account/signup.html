@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Senseira : Sign Up</title>
+{% endblock title %}
+
+{% block navbar_buttons %}
+{% endblock %}
+
+{% block body_block %}
+
+<div id="signUpView" class="sign-up-container clearfix">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Введите данные для регистрации:</div>
+            <div class="panel-body">
+
+                <form class="form-horizontal" role="form" id="signup_form" action="/accounts/signup/" method="post" data-bind="submit: beforeSubmit">
+                    {% csrf_token %}
+                    <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                        <ul data-bind="foreach: validationErrors">
+                            <li data-bind="text: $data"></li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="nameInput" class="control-label">Имя</label>
+                        <div class="col-sm-12">
+                            {% render_field form.first_name data-bind="value: name"  placeholder="Имя" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="surnameInput" class="control-label">Фамилия</label>
+                        <div class="col-sm-12">
+                            {% render_field form.last_name data-bind="value: surname"  placeholder="Фамилия" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput" class="control-label">Адрес электронной почты</label>
+                        <div class="col-sm-12">
+                            {% render_field form.email data-bind="value: email"  placeholder="Эл. почта" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginInput" class="control-label">Логин</label>
+                        <div class="col-sm-12">
+                            {% render_field form.username data-bind="value: login"  placeholder="Логин" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="control-label">Пароль</label>
+                        <div class="col-sm-12">
+                            {% render_field form.password1 data-bind="value: password"  placeholder="Пароль" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputConfirmPassword" class="control-label">Подтверждение пароля</label>
+                        <div class="col-sm-12">
+                            {% render_field form.password2 data-bind="value: passwordConfirmation"  placeholder="Повторите пароль" class+="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-bind="checked: rememberMe"> Запомнить меня
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 panel-container" data-bind="css: { 'active-panel-container': isTeacherAccountRequired() }">
+        <div class="panel panel-default help-panel">
+            <div class="panel-heading">Помощь в получении преподавательского аккаунта:</div>
+            <div class="panel-body">
+                <p>
+                    Для того что бы получить преподовательский аккаунт со всеми его привилегиями
+                    необходимо сделать следующее:
+                </p>
+                <ul class="numeric-list">
+                    <li class="numeric-list-item">Написать запрос на электронную почту проета Senseira:
+                        <a href="mailto:senseira.team@gmail.com">senseira.team@gmail.com</a>,
+                        в котором указать максимум информации, подтверждающей что вы преподаватель.
+                    </li>
+                    <li class="numeric-list-item">
+                        Для подтверждения вашей личности может потребоваться личная встреча.
+                    </li>
+                    <li class="numeric-list-item">
+                        После проверки коммандой Senseira будет создан преподавательский аккаунт на ваше имя, а
+                        логин и пароль для входа будут высланы вам на электронную почту.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_script %}
+<script type="text/javascript" src="{% static 'scripts/custom/plugins.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/custom/initialAlerting.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/senseira/baseForm.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/senseira/signUp.js' %}"></script>
+{% endblock %}

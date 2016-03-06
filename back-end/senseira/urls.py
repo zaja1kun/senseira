@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', include('greeting.urls', namespace='greeting')),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/profile/$', TemplateView.as_view(template_name='account/profile.html')),
 ]
