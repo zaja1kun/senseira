@@ -27,6 +27,23 @@ Senseira.constructors.BaseFormViewModel = (function(ko) {
             }
             return true;
         };
+
+        var getServerSideValidationErrors = function() {
+            var $errorListElement = $("#validationErrorsList");
+            var results = [];
+
+            if ($errorListElement) {
+                var $listOfErrors = $errorListElement.children('li');
+
+                $listOfErrors.each(function() {
+                    var currentElement = $(this);
+                    results.push(currentElement.text());
+                });
+            }
+            return results;
+        };
+
+        self.validationErrors(getServerSideValidationErrors());
     }
 
     return BaseFormViewModel;

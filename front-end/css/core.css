@@ -1,7 +1,7 @@
 .main-container{background-color:#f0f0f0;padding:50px 0 0 0}
 .numeric-list{padding-left:15px}.numeric-list .numeric-list-item{display:list-item;list-style:decimal}
 .activatable-element{display:none}.activatable-element.active{display:block}
-#alertList{display:none}
+#alertList,#validationErrorsList{display:none}
 
 
 
