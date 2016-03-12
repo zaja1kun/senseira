@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load account %}
+
+{% block title %}
+<title>Senseira : Password Profile</title>
+{% endblock title %}
+
+{% block body_block %}
+<h1>Hello, {{ user.username }}</h1>
+<ul class="nav nav-tabs">
+    <li>
+        <a href="{% url 'account_change_password' %}">Change Password</a>
+    </li>
+</ul>
+{% endblock %}

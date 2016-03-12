@@ -39,8 +39,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'greeting',
     'core',
+    'widget_tweaks',
+
+    # allauth applications
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ---
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,6 +70,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'greeting/templates'),
+            os.path.join(BASE_DIR, 'register/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -111,4 +120,40 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "greeting/static"),
+    os.path.join(BASE_DIR, "register/static"),
 ]
+
+# django-allauth settings
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_SIGNUP_FORM_CLASS = 'register.forms.SignupForm'
+ACCOUNT_LOGOUT_ON_GET = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+AUTHENTICATION_BACKENDS = (
+    "allauth.account.auth_backends.AuthenticationBackend",
+)

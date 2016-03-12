@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Senseira : Email Confirmation</title>
+{% endblock title %}
+
+{% block body_block %}
+<div id="emailConfirmationView" class="email-confirmation-container clearfix">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Подтверждение адреса электронной почты:</div>
+            <div class="panel-body">
+
+                {% if confirmation %}
+                <form class="form-horizontal" method="post" action="{% url 'account_confirm_email' confirmation.key %}" role="form">
+                    {% csrf_token %}
+                    <p>
+                        Пожалуйста, подтвердите что <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a>
+                        это ваш адрес электронной почты.
+                    </p>
+                    <div class="form-group buttons-group">
+                        <div class="col-sm-3 col-xs-4 col-lg-4">
+                            <button type="submit" class="btn btn-primary">Подтвердить</button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <p>
+                    Эта ссылка для подтверждения адреса электронной почты устарела или повреждена.
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_script %}
+<script type="text/javascript" src="{% static 'scripts/custom/plugins.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/custom/initialAlerting.js' %}"></script>
+{% endblock body_script %}
