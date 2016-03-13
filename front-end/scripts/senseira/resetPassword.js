@@ -1,5 +1,6 @@
 var Senseira = Senseira || {};
 Senseira.constructors = Senseira.constructors || {};
+Senseira.constants = Senseira.constants || {};
 
 (function(ko, $) {
     'use strict';
@@ -13,10 +14,16 @@ Senseira.constructors = Senseira.constructors || {};
         self.email = ko.observable('');
 
         self.isValid = function() {
-            return true;
+            return self.email().length > 0;
         };
 
         self.showValidationErrors = function() {
+            var errors = [];
+
+            if (self.email().length === 0) {
+                errors.push(Senseira.constants.EmailRequiredMessage);
+            }
+            self.validationErrors(errors);
         };
     }
 
