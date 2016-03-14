@@ -1,10 +1,33 @@
 @import "../shared/constants";
 
 #moduleSystemCreator {
+  @treeLinkColor: @mainBlueColor + #888;
+  @treeNodeBorderColor: @mainBlueColor;
+  @treeNodeWithChildrenColor: @mainContainerBackground - #101010;
+
   &.module-system-creator-container {
     padding: @mainOffset;
   }
-  & .module-system-tree {
+  & .module-system-view-tree {
     min-height: 50px;
+  }
+  & .module-system-view-link {
+    fill: none;
+    stroke: @treeLinkColor;
+    stroke-width: 2;
+  }
+  & .module-system-view-node {
+    & .module-system-view-node-text {
+      font-size: 120%;
+      fill: @treeNodeBorderColor;
+    }
+    & .module-system-view-node-circle {
+      fill: @mainContainerBackground;
+      stroke: @treeNodeBorderColor;
+      stroke-width: 2px;
+    }
+    & .module-system-view-node-with-children {
+      fill: @treeNodeWithChildrenColor;
+    }
   }
 }

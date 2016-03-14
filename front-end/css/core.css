@@ -23,7 +23,11 @@
 @media screen and (max-width:1200px){#greetingView .system-work-examples .example{display:block;padding-top:20px}}
 
 #moduleSystemCreator.module-system-creator-container{padding:20px}
-#moduleSystemCreator .module-system-tree{min-height:50px}
+#moduleSystemCreator .module-system-view-tree{min-height:50px}
+#moduleSystemCreator .module-system-view-link{fill:none;stroke:#aac8f6;stroke-width:2}
+#moduleSystemCreator .module-system-view-node .module-system-view-node-text{font-size:120%;fill:#22406e}
+#moduleSystemCreator .module-system-view-node .module-system-view-node-circle{fill:#f0f0f0;stroke:#22406e;stroke-width:2px}
+#moduleSystemCreator .module-system-view-node .module-system-view-node-with-children{fill:#e0e0e0}
 
 #passwordChangingView.password-changing-container{padding:20px}#passwordChangingView.password-changing-container .control-label{padding-left:15px;padding-top:0}
 
