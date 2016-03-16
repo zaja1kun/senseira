@@ -1,31 +1,41 @@
 @import "../shared/constants";
+@import "../shared/customMixins";
 
 #moduleSystemCreator {
-  @treeLinkColor: @mainBlueColor + #888;
-  @treeNodeBorderColor: @mainBlueColor;
+  @treeLinkColor: @mainBlueColor + #666;
+  @treeNodeHoverColor: @mainBlueColor;
   @treeNodeWithChildrenColor: @mainContainerBackground - #101010;
 
   &.module-system-creator-container {
     padding: @mainOffset;
   }
+
   & .module-system-view-tree {
     min-height: 50px;
   }
+
   & .module-system-view-link {
+    .d3tree-hover(@treeNodeHoverColor);
     fill: none;
     stroke: @treeLinkColor;
     stroke-width: 2;
   }
+
   & .module-system-view-node {
+    cursor: pointer;
     & .module-system-view-node-text {
-      font-size: 120%;
-      fill: @treeNodeBorderColor;
+      font-size: 110%;
+      fill: @treeNodeHoverColor;
     }
+
     & .module-system-view-node-circle {
+      .d3tree-hover(@treeNodeHoverColor);
       fill: @mainContainerBackground;
-      stroke: @treeNodeBorderColor;
+      stroke: @treeLinkColor;
       stroke-width: 2px;
+
     }
+
     & .module-system-view-node-with-children {
       fill: @treeNodeWithChildrenColor;
     }
