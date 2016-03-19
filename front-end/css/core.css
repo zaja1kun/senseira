@@ -1,3 +1,16 @@
+.multi-select-list-container{background-color:#fff;border-radius:5px;cursor:default;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}.multi-select-list-container .selecting-statistic{padding:10px 5px;text-align:center;border-bottom:1px solid #ccc}
+.multi-select-list-container .scroll-button{padding:0 5px;text-align:center;border-bottom:1px solid #ccc;cursor:pointer}.multi-select-list-container .scroll-button .glyphicon:before{font-size:11px;line-height:11px}
+.multi-select-list-container .scroll-button:hover{background-color:#e1e1e1}
+.multi-select-list-container .scroll-button:active{background-color:#c8c8c8}
+.multi-select-list-container .multi-select-list{margin-bottom:0}.multi-select-list-container .multi-select-list .multi-select-list-item{cursor:pointer;border-bottom:1px solid #ccc;transform:scale(1);transition-property:transform;transition-duration:90ms;transition-timing-function:ease-out}.multi-select-list-container .multi-select-list .multi-select-list-item .item-number{display:inline-block;width:13%;vertical-align:middle;padding:5px;border-right:1px solid #ccc}
+.multi-select-list-container .multi-select-list .multi-select-list-item .item-info{display:inline-block;vertical-align:middle;padding:5px}
+.multi-select-list-container .multi-select-list .multi-select-list-item .item-info .item-additional-info{display:none}
+.multi-select-list-container .multi-select-list .multi-select-list-item.selected{color:#fff;background-color:#2f5795}
+.multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible{transform:scale(1.05);background-color:#fff}.multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible .item-info .item-additional-info{display:block}
+.multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible.selected{color:#fff;background-color:#2f5795}
+.multi-select-list-container .multi-select-list .multi-select-list-item:hover{background-color:#e1e1e1}.multi-select-list-container .multi-select-list .multi-select-list-item:hover.selected{background-color:#396bb7}
+.multi-select-list-container .multi-select-list-footer{padding:10px 5px}
+
 .main-container{background-color:#f0f0f0;padding:50px 0 0 0}
 .numeric-list{padding-left:15px}.numeric-list .numeric-list-item{display:list-item;list-style:decimal}
 .activatable-element{display:none}.activatable-element.active{display:block}
@@ -21,6 +34,8 @@
 #greetingView .system-work-examples{padding:20px;text-align:center}#greetingView .system-work-examples .example{display:inline-block;padding:0 30px 0 30px}#greetingView .system-work-examples .example .example-image.img-thumbnail{background-color:#22406e}
 #greetingView .system-work-examples .example .example-image:hover{transform:scale(1.15, 1.15)}
 @media screen and (max-width:1200px){#greetingView .system-work-examples .example{display:block;padding-top:20px}}
+
+#labsIssuanceView.labs-issuance-container{padding:20px}#labsIssuanceView.labs-issuance-container .control-label{padding-left:15px;padding-top:0}
 
 #passwordChangingView.password-changing-container{padding:20px}#passwordChangingView.password-changing-container .control-label{padding-left:15px;padding-top:0}
 

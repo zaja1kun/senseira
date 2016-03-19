@@ -1,0 +1,45 @@
+<script id="multiSelectListTemplate" type="text/html">
+    <div class="multi-select-list-container" data-bind="event: { wheel: scrollList }">
+        <div class="selecting-statistic" data-bind="text: selectingStatisticText">
+        </div>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToTop,
+                                         mouseup: stopScrolling,
+                                         mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        </div>
+
+        <ul class="multi-select-list" data-bind="foreach: listOfVisibleItems">
+            <li class="multi-select-list-item"
+                data-bind="css: { 'selected': isSelected(), 'additional-info-visible': isAdditionalInfoVisible },
+                                   event: { contextmenu: toggleAdditional },
+                                   click: toggleSelected">
+
+                <!-- ko if: $parent.isNumberedList -->
+                <div class="item-number" data-bind="text: number"></div>
+                <!-- /ko -->
+
+                <div class="item-info">
+                    <div class="item-main-info" data-bind="text: mainInformation"></div>
+                    <div class="item-additional-info">
+                        <ul class="additional-info-list" data-bind="foreach: additionalInformation">
+                            <li class="additional-info-item" data-bind="text: $data"></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToBottom,
+                                         mouseup: stopScrolling,
+                                         mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+        </div>
+
+        <div class="multi-select-list-footer">
+        </div>
+    </div>
+</script>
