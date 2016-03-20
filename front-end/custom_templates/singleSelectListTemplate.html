@@ -1,0 +1,27 @@
+<script id="singleSelectListTemplate" type="text/html">
+    <div class="single-select-list-container"
+         data-bind="event: { wheel: scrollList },
+                    visible: listOfVisibleItems().length > 0">
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToTop,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        </div>
+
+        <ul class="single-select-list" data-bind="foreach: listOfVisibleItems">
+            <li class="single-select-list-item"
+                data-bind="css: cssClass, click: $parent.selectItem, event: { contextmenu: $parent.callContextMenuCallback }">
+                <h6 class="item-title" data-bind="text: title"></h6>
+                <p class="item-text" data-bind="text: text"></p>
+            </li>
+        </ul>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToBottom,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+        </div>
+    </div>
+</script>

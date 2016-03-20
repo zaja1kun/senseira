@@ -1,18 +1,15 @@
 @import "../shared/customMixins";
 
 @multiSelectListBackground: #fff;
-@selectedListItemColor: #fff;
-@selectedListItemBackground: #2F5795;
-@hoveredListItemBackground: #E1E1E1;
+@selectedMultiSelectListItemColor: #fff;
+@selectedMultiSelectListItemBackground: #2F5795;
+@hoveredMultiSelectListItemBackground: #E1E1E1;
 @hoveredSelectedListItemBackground: #396BB7;
-@hoveredScrollButtonBackground: @hoveredListItemBackground;
-@activeScrollButtonBackground: darken(@hoveredListItemBackground, 10%);
 
 @multiSelectListHeaderPadding: 10px 5px;
 @multiSelectListFooterPadding: 10px 5px;
 @multiSelectListElementPadding: 5px;
-@scrollButtonPadding: 0 5px;
-@itemNumberPadding: 5px;
+@multiSelectListItemNumberPadding: 5px;
 
 @glyphiconSize: 11px;
 
@@ -33,40 +30,26 @@
         border-bottom: @multiSelectListBorder;
     }
 
-    .scroll-button {
-        padding: @scrollButtonPadding;
-
-        text-align: center;
-
-        border-bottom: @multiSelectListBorder;
-        cursor: pointer;
-
-        .glyphicon:before {
-            font-size: @glyphiconSize;
-            line-height: @glyphiconSize;
-        }
-
-        &:hover {
-            background-color: @hoveredScrollButtonBackground;
-        }
-
-        &:active {
-            background-color: @activeScrollButtonBackground;
-        }
-    }
+    .scroll-button-mixin();
 
     .multi-select-list {
         margin-bottom: 0;
 
+        border-top: @multiSelectListBorder;
+        border-bottom: @multiSelectListBorder;
+
         .multi-select-list-item {
             cursor: pointer;
-            border-bottom: @multiSelectListBorder;
+
+            &:not(:last-child) {
+                border-bottom: @multiSelectListBorder;
+            }
 
             .item-number {
                 display: inline-block;
                 width: 13%;
                 vertical-align: middle;
-                padding: @itemNumberPadding;
+                padding: @multiSelectListItemNumberPadding;
 
                 border-right: @multiSelectListBorder;
             }
@@ -76,23 +59,14 @@
                 vertical-align: middle;
                 padding: @multiSelectListElementPadding;
 
-                .item-main-info {
-                }
-
                 .item-additional-info {
                     display: none;
-
-                    .additional-info-list {
-                        .additional-info-item {
-
-                        }
-                    }
                 }
             }
 
             &.selected {
-                color: @selectedListItemColor;
-                background-color: @selectedListItemBackground;
+                color: @selectedMultiSelectListItemColor;
+                background-color: @selectedMultiSelectListItemBackground;
             }
 
             transform: scale(1);
@@ -111,13 +85,13 @@
                 }
 
                 &.selected {
-                    color: @selectedListItemColor;
-                    background-color: @selectedListItemBackground;
+                    color: @selectedMultiSelectListItemColor;
+                    background-color: @selectedMultiSelectListItemBackground;
                 }
             }
 
             &:hover {
-                background-color: @hoveredListItemBackground;
+                background-color: @hoveredMultiSelectListItemBackground;
 
                 &.selected {
                     background-color: @hoveredSelectedListItemBackground
@@ -128,5 +102,6 @@
 
     .multi-select-list-footer {
         padding: @multiSelectListFooterPadding;
+        border-top: @multiSelectListBorder;
     }
 }

@@ -49,12 +49,12 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
 
         var self = this;
 
-        self.isNumberedList = false;
-        self.maxCountOfVisibleItems = false;
-        self.currentRangeOfVisibleItems = {};
+        if (Senseira.constructors.ScrollableList) {
+            Senseira.constructors.ScrollableList.call(self);
+        }
 
-        self.listItems = ko.observableArray([]);
-        self.listOfVisibleItems = ko.observableArray([]);
+        self.isNumberedList = false;
+        self.maxCountOfVisibleItems = 0;
 
         //#endregion
 
@@ -95,83 +95,28 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
             return result;
         };
 
-        var shiftRangeOfVisibleItems = function(isForwardDirection) {
-            var defaultShiftLength = 1;
-            var startIndex = self.currentRangeOfVisibleItems.startIndex;
-            var endIndex = self.currentRangeOfVisibleItems.endIndex;
-            var shift = 0;
-
-            if (isForwardDirection) {
-                var tailLength = self.listItems().length - endIndex - 1;
-                shift = tailLength > defaultShiftLength ? defaultShiftLength : tailLength;
-
-                self.currentRangeOfVisibleItems.startIndex += shift;
-                self.currentRangeOfVisibleItems.endIndex += shift;
-            } else {
-                var headLength = startIndex;
-                shift = headLength > defaultShiftLength ? defaultShiftLength : headLength;
-
-                self.currentRangeOfVisibleItems.startIndex -= shift;
-                self.currentRangeOfVisibleItems.endIndex -= shift;
-            }
-        };
-
-        var scrollList = function(isForwardDirection) {
-            shiftRangeOfVisibleItems(isForwardDirection);
-
-            var listItems = self.listItems();
-            var listOfVisibleItems = listItems.slice(
-                self.currentRangeOfVisibleItems.startIndex,
-                self.currentRangeOfVisibleItems.endIndex + 1
-            );
-            self.listOfVisibleItems(listOfVisibleItems);
-        };
-
-        var init = function(controlSettings) {
-            self.isNumberedList = controlSettings.isNumberedList;
+        var setNewVisibilityWindow = function(controlSettings) {
             self.maxCountOfVisibleItems = controlSettings.maxCountOfVisibleItems < controlSettings.items.length
                 ? controlSettings.maxCountOfVisibleItems
                 : controlSettings.items.length;
 
-            var listItems = getListItems(controlSettings.items, controlSettings.isSelfNumberedList);
-            var countOfVisibleItems = self.maxCountOfVisibleItems || listItems.length;
-            var listOfVisibleItems = listItems.slice(0, countOfVisibleItems);
+            if (self.maxCountOfVisibleItems > 0) {
+                var listOfVisibleItems = self.listItems().slice(0, self.maxCountOfVisibleItems);
+                self.listOfVisibleItems(listOfVisibleItems);
+            }
 
-            self.listItems(listItems);
-            self.listOfVisibleItems(listOfVisibleItems);
             self.currentRangeOfVisibleItems = {
                 startIndex: 0,
-                endIndex: countOfVisibleItems - 1
+                endIndex: self.maxCountOfVisibleItems - 1
             };
-            self.listLength = listItems.length;
         };
 
-        //#endregion
+        var init = function(controlSettings) {
+            var listItems = getListItems(controlSettings.items, controlSettings.isSelfNumberedList);
+            self.listItems(listItems);
+            self.isNumberedList = controlSettings.isNumberedList;
 
-        //#region Event handlers
-
-        self.scrollList = function(element, event) {
-            var isForwardDirection = event.originalEvent.deltaY > 0;
-            scrollList(isForwardDirection);
-        };
-
-        var scrollingIntervalId = 0;
-        var intervalLength = 100;
-
-        self.scrollToTop = function() {
-            scrollingIntervalId = setInterval(function() {
-                scrollList(false);
-            }, intervalLength);
-        };
-
-        self.scrollToBottom = function() {
-            scrollingIntervalId = setInterval(function() {
-                scrollList(true);
-            }, intervalLength);
-        };
-
-        self.stopScrolling = function() {
-            clearInterval(scrollingIntervalId);
+            setNewVisibilityWindow(controlSettings);
         };
 
         //#endregion
@@ -192,6 +137,10 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
 
         self.setNewSettings = function(newSettings) {
             init(newSettings);
+        };
+
+        self.setNewVisibilityWindow = function(newSettings) {
+            setNewVisibilityWindow(newSettings);
         };
 
         self.selectAll = function() {

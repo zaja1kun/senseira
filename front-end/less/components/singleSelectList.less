@@ -1,0 +1,112 @@
+@import "../shared/customMixins";
+
+@singleSelectListBackground: #fff;
+@singleSelectListBorder: 1px solid #ccc;
+
+@singleSelectListItemPadding: 5px;
+@singleSelectListItemTitleMargin: 3px 0;
+@singleSelectListItemTextMargin: 0;
+@singleSelectListItemSelectedBorder: 3px solid #fff;
+
+@titleTextColor: #F7F7F7;
+
+@typeOneBackground: #DC4A3D;
+@typeOneSelectedBackground: darken(@typeOneBackground, 10%);
+@typeOneTitleColor: @titleTextColor;
+@typeOneTextColor: #FFD5D5;
+
+@typeTwoBackground: #1EA462;
+@typeTwoSelectedBackground: darken(@typeTwoBackground, 10%);
+@typeTwoTitleColor: @titleTextColor;
+@typeTwoTextColor: #D2F7E4;
+
+@typeThreeBackground: #223F6C;
+@typeThreeSelectedBackground: darken(@typeThreeBackground, 10%);
+@typeThreeTitleColor: @titleTextColor;
+@typeThreeTextColor: #BDCFEA;
+
+.single-select-list-container {
+    background-color: @singleSelectListBackground;
+    border-radius: 5px;
+
+    .scroll-button-mixin();
+    .disable-text-select-mixin();
+
+    .single-select-list {
+        margin-bottom: 0;
+
+        border-top: @singleSelectListBorder;
+        border-bottom: @singleSelectListBorder;
+
+        .single-select-list-item {
+            box-sizing: border-box;
+            padding: @singleSelectListItemPadding;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                border-bottom: @singleSelectListBorder;
+            }
+
+            .item-title {
+                margin: @singleSelectListItemTitleMargin;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .item-text {
+                margin: @singleSelectListItemTextMargin;
+            }
+
+            &.type-one {
+                background-color: @typeOneBackground;
+
+                .item-title {
+                    color: @typeOneTitleColor;
+                }
+
+                .item-text {
+                    color: @typeOneTextColor;
+                }
+
+                &.selected {
+                    background-color: @typeOneSelectedBackground;
+                    border: @singleSelectListItemSelectedBorder;
+                }
+            }
+
+            &.type-two {
+                background-color: @typeTwoBackground;
+
+                .item-title {
+                    color: @typeTwoTitleColor;
+                }
+
+                .item-text {
+                    color: @typeTwoTextColor;
+                }
+
+                &.selected {
+                    background-color: @typeTwoSelectedBackground;
+                    border: @singleSelectListItemSelectedBorder;
+                }
+            }
+
+            &.type-three {
+                background-color: @typeThreeBackground;
+
+                .item-title {
+                    color: @typeThreeTitleColor;
+                }
+
+                .item-text {
+                    color: @typeThreeTextColor;
+                }
+
+                &.selected {
+                    background-color: @typeThreeSelectedBackground;
+                    border: @singleSelectListItemSelectedBorder;
+                }
+            }
+        }
+    }
+}

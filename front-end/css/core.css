@@ -1,20 +1,37 @@
 .multi-select-list-container{background-color:#fff;border-radius:5px;cursor:default;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}.multi-select-list-container .selecting-statistic{padding:10px 5px;text-align:center;border-bottom:1px solid #ccc}
-.multi-select-list-container .scroll-button{padding:0 5px;text-align:center;border-bottom:1px solid #ccc;cursor:pointer}.multi-select-list-container .scroll-button .glyphicon:before{font-size:11px;line-height:11px}
+.multi-select-list-container .scroll-button{padding:0 5px;text-align:center;cursor:pointer}.multi-select-list-container .scroll-button .glyphicon:before{font-size:11px;line-height:11px}
 .multi-select-list-container .scroll-button:hover{background-color:#e1e1e1}
 .multi-select-list-container .scroll-button:active{background-color:#c8c8c8}
-.multi-select-list-container .multi-select-list{margin-bottom:0}.multi-select-list-container .multi-select-list .multi-select-list-item{cursor:pointer;border-bottom:1px solid #ccc;transform:scale(1);transition-property:transform;transition-duration:90ms;transition-timing-function:ease-out}.multi-select-list-container .multi-select-list .multi-select-list-item .item-number{display:inline-block;width:13%;vertical-align:middle;padding:5px;border-right:1px solid #ccc}
-.multi-select-list-container .multi-select-list .multi-select-list-item .item-info{display:inline-block;vertical-align:middle;padding:5px}
-.multi-select-list-container .multi-select-list .multi-select-list-item .item-info .item-additional-info{display:none}
+.multi-select-list-container .multi-select-list{margin-bottom:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc}.multi-select-list-container .multi-select-list .multi-select-list-item{cursor:pointer;transform:scale(1);transition-property:transform;transition-duration:90ms;transition-timing-function:ease-out}.multi-select-list-container .multi-select-list .multi-select-list-item:not(:last-child){border-bottom:1px solid #ccc}
+.multi-select-list-container .multi-select-list .multi-select-list-item .item-number{display:inline-block;width:13%;vertical-align:middle;padding:5px;border-right:1px solid #ccc}
+.multi-select-list-container .multi-select-list .multi-select-list-item .item-info{display:inline-block;vertical-align:middle;padding:5px}.multi-select-list-container .multi-select-list .multi-select-list-item .item-info .item-additional-info{display:none}
 .multi-select-list-container .multi-select-list .multi-select-list-item.selected{color:#fff;background-color:#2f5795}
 .multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible{transform:scale(1.05);background-color:#fff}.multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible .item-info .item-additional-info{display:block}
 .multi-select-list-container .multi-select-list .multi-select-list-item.additional-info-visible.selected{color:#fff;background-color:#2f5795}
 .multi-select-list-container .multi-select-list .multi-select-list-item:hover{background-color:#e1e1e1}.multi-select-list-container .multi-select-list .multi-select-list-item:hover.selected{background-color:#396bb7}
-.multi-select-list-container .multi-select-list-footer{padding:10px 5px}
+.multi-select-list-container .multi-select-list-footer{padding:10px 5px;border-top:1px solid #ccc}
+
+.single-select-list-container{background-color:#fff;border-radius:5px;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}.single-select-list-container .scroll-button{padding:0 5px;text-align:center;cursor:pointer}.single-select-list-container .scroll-button .glyphicon:before{font-size:11px;line-height:11px}
+.single-select-list-container .scroll-button:hover{background-color:#e1e1e1}
+.single-select-list-container .scroll-button:active{background-color:#c8c8c8}
+.single-select-list-container .single-select-list{margin-bottom:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc}.single-select-list-container .single-select-list .single-select-list-item{box-sizing:border-box;padding:5px;cursor:pointer}.single-select-list-container .single-select-list .single-select-list-item:not(:last-child){border-bottom:1px solid #ccc}
+.single-select-list-container .single-select-list .single-select-list-item .item-title{margin:3px 0;font-size:14px;font-weight:bold}
+.single-select-list-container .single-select-list .single-select-list-item .item-text{margin:0}
+.single-select-list-container .single-select-list .single-select-list-item.type-one{background-color:#dc4a3d}.single-select-list-container .single-select-list .single-select-list-item.type-one .item-title{color:#f7f7f7}
+.single-select-list-container .single-select-list .single-select-list-item.type-one .item-text{color:#ffd5d5}
+.single-select-list-container .single-select-list .single-select-list-item.type-one.selected{background-color:#c33023;border:3px solid #fff}
+.single-select-list-container .single-select-list .single-select-list-item.type-two{background-color:#1ea462}.single-select-list-container .single-select-list .single-select-list-item.type-two .item-title{color:#f7f7f7}
+.single-select-list-container .single-select-list .single-select-list-item.type-two .item-text{color:#d2f7e4}
+.single-select-list-container .single-select-list .single-select-list-item.type-two.selected{background-color:#167948;border:3px solid #fff}
+.single-select-list-container .single-select-list .single-select-list-item.type-three{background-color:#223f6c}.single-select-list-container .single-select-list .single-select-list-item.type-three .item-title{color:#f7f7f7}
+.single-select-list-container .single-select-list .single-select-list-item.type-three .item-text{color:#bdcfea}
+.single-select-list-container .single-select-list .single-select-list-item.type-three.selected{background-color:#162845;border:3px solid #fff}
 
 .main-container{background-color:#f0f0f0;padding:50px 0 0 0}
 .numeric-list{padding-left:15px}.numeric-list .numeric-list-item{display:list-item;list-style:decimal}
 .activatable-element{display:none}.activatable-element.active{display:block}
 #alertList,#validationErrorsList{display:none}
+.filters-group{padding:10px 35px;background-color:#f5f5f5;border-bottom:1px solid #ddd}
 
 
 

@@ -10,5 +10,9 @@ Senseira.constants = {
     NewPasswordRequiredMessage: 'Требуется ввести новый пароль',
     PasswordConfirmationRequiredMessage: 'Требуется ввести подтверждение пароля',
     PasswordsEqualityRequiredMessage: 'Пароль и подтверждение пароля должны совпадать',
-    MinPasswordLengthMessage: 'Минимальная длинна пароля - 6 символов'
+    MinPasswordLengthMessage: 'Минимальная длинна пароля - 6 символов',
+    HeightPerOneMultiSelectListElement: 64,
+    MinCountOfMultiSelectListElements: 5,
+    HeightPerOneSingleSelectListElement: 128,
+    MinCountOfSingleSelectListElements: 3
 };
