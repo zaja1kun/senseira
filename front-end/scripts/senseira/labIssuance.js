@@ -53,6 +53,7 @@ Senseira.alerting = Senseira.alerting || {};
         self.selectedSubgroup = ko.observable(null);
 
         self.taskAddingModal = new Senseira.constructors.TaskAddingModal();
+        self.taskIssuanceForm = new Senseira.constructors.TaskIssuanceForm();
         self.tasksSingleSelectList = new Senseira.constructors.SingleSelectList(tasksSingleSelectListSettings);
         self.studentsMultiSelectList = new Senseira.constructors.MultiSelectList(studentsMultiSelectListSettings);
 
@@ -154,6 +155,18 @@ Senseira.alerting = Senseira.alerting || {};
                 typeId: task.typeId,
                 title: title,
                 text: task.theme
+            }
+        };
+
+        var transformToTaskIssuanceFormData = function(task) {
+            var taskIndex = task.number;
+            var taskFromList = taskList[taskIndex];
+
+            return {
+                id: taskFromList.id,
+                title: task.title,
+                theme: task.text,
+                description: taskFromList.description
             }
         };
 
@@ -546,9 +559,18 @@ Senseira.alerting = Senseira.alerting || {};
             Senseira.alerting.success('Задача успешно удалена.');
         };
 
+        var showTaskIssuanceForm = function(task) {
+            if (task.isSelected) {
+                var taskIssuanceFormData = transformToTaskIssuanceFormData(task);
+                self.taskIssuanceForm.show(taskIssuanceFormData);
+            } else {
+                self.taskIssuanceForm.hide();
+            }
+        };
+
         var subscribeOnEvents = function() {
             self.tasksSingleSelectList.setSelectEventHandler(function(data) {
-                alert(data.title);
+                showTaskIssuanceForm(data);
             });
 
             self.tasksSingleSelectList.setContextMenuHandler(updateTaskCallback.bind(self));

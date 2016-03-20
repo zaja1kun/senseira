@@ -77,7 +77,7 @@
             </div>
         </section>
         <section class="col-md-6">
-
+            <div data-bind="template: { name: 'tasksIssuanceFormTemplate', data: taskIssuanceForm }"></div>
         </section>
         <section class="col-md-3">
             <div data-bind="template: { name: 'multiSelectListTemplate', data: studentsMultiSelectList }"></div>
@@ -200,6 +200,67 @@
     </div>
 </script>
 
+<script id="tasksIssuanceFormTemplate" type="text/html">
+    <div id="taskIssuanceForm" data-bind="visible: isVisible()">
+        <div class="panel panel-default task-issuance-panel">
+            <div class="panel-heading">Распредение задания:</div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <h4 class="task-title" data-bind="text: title"></h4>
+                        <h5 class="task-theme">
+                            <span class="entered-text">Тема: </span>
+                            <span data-bind="text: theme"></span>
+                        </h5>
+                        <p class="task-description">
+                            <span class="entered-text">Описание: </span>
+                            <span data-bind="text: description"></span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-bind="checked: isIssuanceByVariantRequired"/>
+                                Распределить задания по вариантам
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group variant-list-container" data-bind="visible: isIssuanceByVariantRequired">
+                        <ul class="variant-list">
+                            <li class="variant">
+                                <span class="variant-label">Вася Пупкин</span>
+                                <textarea class="form-control">
+                                </textarea>
+                            </li>
+                            <li class="variant">
+                                <span class="variant-label">Вася Пупкин</span>
+                                <textarea class="form-control">
+                                </textarea>
+                            </li>
+                            <li class="variant">
+                                <span class="variant-label">Вася Пупкин</span>
+                                <textarea class="form-control">
+                                </textarea>
+                            </li>
+                            <li class="variant">
+                                <span class="variant-label">Вася Пупкин</span>
+                                <textarea class="form-control">
+                                </textarea>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group buttons-group clearfix">
+                        <div class="inline-container pull-right">
+                            <button type="submit" class="btn btn-primary">Распределить задание</button>
+                            <button type="button" class="btn btn-default" data-bind="click: hide">Отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
 <script id="multiSelectListTemplate" type="text/html">
     <div class="multi-select-list-container"
          data-bind="event: { wheel: scrollList },
@@ -257,7 +318,8 @@
 <script type="text/javascript" src="scripts/custom/initialAlerting.js"></script>
 <script type="text/javascript" src="scripts/senseira/constants.js"></script>
 <script type="text/javascript" src="scripts/senseira/baseForm.js"></script>
-<script type="text/javascript" src="scripts/senseira/modals/taskAddingModal.js"></script>
+<script type="text/javascript" src="scripts/senseira/templates/taskAddingModal.js"></script>
+<script type="text/javascript" src="scripts/senseira/templates/taskIssuanceForm.js"></script>
 <script type="text/javascript" src="scripts/senseira/labIssuance.js"></script>
 <!-- Body script place -->
 </body>
