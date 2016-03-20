@@ -1,0 +1,78 @@
+<script id="taskAddingModalTemplate" type="text/html">
+    <div id="taskAddingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="taskAddingModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">
+                        <!-- ko if: isAddingMode -->
+                        <span>Добавление задания</span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isAddingMode -->
+                        <span>Обновление задания</span>
+                        <!-- /ko -->
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskNumber" class="control-label">Номер:</label>
+                            <input id="taskNumber"
+                                   type="number"
+                                   class="form-control"
+                                   data-bind="value: taskNumber"/>
+                        </div>
+                        <!-- ko if: isAddingMode -->
+                        <div class="form-group">
+                            <label for="taskTypes">Тип задания:</label>
+                            <select id="taskTypes"
+                                    class="form-control"
+                                    data-bind="options: taskTypeOptions, value: taskTypeSelectedOption">
+                            </select>
+                        </div>
+                        <!-- /ko -->
+                        <div class="form-group">
+                            <label for="taskTheme" class="control-label">Тема:</label>
+                            <input id="taskTheme"
+                                   type="text"
+                                   class="form-control"
+                                   data-bind="value: taskTheme"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription" class="control-label">Описание:</label>
+                            <textarea class="form-control"
+                                      id="taskDescription"
+                                      data-bind="value: taskDescription">
+                            </textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer clearfix">
+                    <!-- ko ifnot: isAddingMode -->
+                    <button type="button"
+                            class="btn btn-danger pull-left"
+                            data-bind="click: deleteTask">Удалить задание</button>
+                    <!-- /ko -->
+                    <button type="button" class="btn btn-primary" data-bind="click: processAction">
+                        <!-- ko if: isAddingMode -->
+                        <span>Добавить</span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isAddingMode -->
+                        <span>Обновить</span>
+                        <!-- /ko -->
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

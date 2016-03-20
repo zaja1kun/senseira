@@ -1,7 +1,7 @@
 <script id="singleSelectListTemplate" type="text/html">
     <div class="single-select-list-container"
          data-bind="event: { wheel: scrollList },
-                    visible: listOfVisibleItems().length > 0">
+                    visible: singleSelectListIsVisible()">
         <div class="scroll-button"
              data-bind="event: { mousedown: scrollToTop,
                                  mouseup: stopScrolling,

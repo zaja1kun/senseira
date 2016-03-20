@@ -38,9 +38,7 @@ Senseira.constructors.ScrollableList = (function(ko, jQuery) {
             }
         };
 
-        var scrollList = function(isForwardDirection) {
-            shiftRangeOfVisibleItems(isForwardDirection);
-
+        var updateList = function() {
             var listItems = self.listItems();
             var listOfVisibleItems = listItems.slice(
                 self.currentRangeOfVisibleItems.startIndex,
@@ -49,9 +47,18 @@ Senseira.constructors.ScrollableList = (function(ko, jQuery) {
             self.listOfVisibleItems(listOfVisibleItems);
         };
 
+        var scrollList = function(isForwardDirection) {
+            shiftRangeOfVisibleItems(isForwardDirection);
+            updateList();
+        };
+
         //#endregion
 
         //#region Event handlers
+
+        self.updateList = function() {
+            updateList();
+        };
 
         self.scrollList = function(element, event) {
             var isForwardDirection = event.originalEvent.deltaY > 0;

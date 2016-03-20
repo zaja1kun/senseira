@@ -11,8 +11,8 @@ Senseira.constructors.SingleSelectList = (function(ko, $) {
 
             self.number = number;
             self.id = id;
-            self.title = title;
-            self.text = text;
+            self.title = ko.observable(title);
+            self.text = ko.observable(text);
             self.cssClass = ko.observable(cssClass || '');
             self.isSelected = ko.observable(false);
 
@@ -37,6 +37,14 @@ Senseira.constructors.SingleSelectList = (function(ko, $) {
             Senseira.constructors.ScrollableList.call(self);
         }
 
+        self.singleSelectListIsVisible = ko.computed(function() {
+            return self.listItems().length > 0;
+        });
+
+        //#endregion
+
+        //#region Private Methods
+
         var getCssClassByTypeId = function(typeId, mappingArray) {
             var typeMapping = ko.utils.arrayFirst(mappingArray, function(mapping) {
                 return mapping.typeId === typeId;
@@ -44,16 +52,18 @@ Senseira.constructors.SingleSelectList = (function(ko, $) {
             return typeMapping ? typeMapping.cssClass : '';
         };
 
-        //#endregion
-
-        //#region Private Methods
+        var updateNumbersOfList = function() {
+            ko.utils.arrayForEach(self.listItems(), function(item, index) {
+                item.number = index;
+            });
+        };
 
         var transformSingleSelectListItemToData = function(listItem) {
             return {
                 number: listItem.number,
                 id: listItem.id,
-                title: listItem.title,
-                text: listItem.text,
+                title: listItem.title(),
+                text: listItem.text(),
                 isSelected: listItem.isSelected()
             }
         };
@@ -61,7 +71,7 @@ Senseira.constructors.SingleSelectList = (function(ko, $) {
         var transformListItems = function(items, typeToClassMapping) {
             return ko.utils.arrayMap(items, function(item, index) {
                 var cssClass = getCssClassByTypeId(item.typeId, typeToClassMapping);
-                return new SingleSelectListItem(index + 1, item.id, item.title, item.text, cssClass);
+                return new SingleSelectListItem(index, item.id, item.title, item.text, cssClass);
             });
         };
 
@@ -158,16 +168,23 @@ Senseira.constructors.SingleSelectList = (function(ko, $) {
 
         self.addNewItem = function(item, typeToClassMapping) {
             var cssClass = getCssClassByTypeId(item.typeId, typeToClassMapping);
-            var number = self.listItems().length + 1;
+            var number = self.listItems().length;
             self.listItems.push(new SingleSelectListItem(number, item.id, item.title, item.text, cssClass));
         };
 
-        self.updateItem = function(number, title, text) {
+        self.deleteItem = function(index) {
+            self.listItems.splice(index, 1);
+            updateNumbersOfList();
+            self.updateList();
+        };
+
+        self.updateItem = function(number, updatedItem) {
             var item = ko.utils.arrayFirst(self.listItems(), function(item) {
                 return item.number === number;
             });
-            item.title = title;
-            item.text = text;
+            item.id = updatedItem.id;
+            item.title(updatedItem.title);
+            item.text(updatedItem.text);
         };
 
         //#endregion

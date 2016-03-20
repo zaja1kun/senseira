@@ -56,6 +56,10 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
         self.isNumberedList = false;
         self.maxCountOfVisibleItems = 0;
 
+        self.multiSelectListIsVisible = ko.computed(function() {
+            return self.listItems().length > 0;
+        });
+
         //#endregion
 
         //#region Computed fields

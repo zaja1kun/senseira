@@ -1,12 +1,14 @@
 <script id="multiSelectListTemplate" type="text/html">
-    <div class="multi-select-list-container" data-bind="event: { wheel: scrollList }">
+    <div class="multi-select-list-container"
+         data-bind="event: { wheel: scrollList },
+                    visible: multiSelectListIsVisible()">
         <div class="selecting-statistic" data-bind="text: selectingStatisticText">
         </div>
 
         <div class="scroll-button"
              data-bind="event: { mousedown: scrollToTop,
-                                         mouseup: stopScrolling,
-                                         mouseout: stopScrolling }">
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
             <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
         </div>
 
@@ -34,8 +36,8 @@
 
         <div class="scroll-button"
              data-bind="event: { mousedown: scrollToBottom,
-                                         mouseup: stopScrolling,
-                                         mouseout: stopScrolling }">
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
             <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
         </div>
 
