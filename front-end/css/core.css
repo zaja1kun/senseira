@@ -23,12 +23,13 @@
 #greetingView .system-work-examples .example .example-image:hover{transform:scale(1.15, 1.15)}
 @media screen and (max-width:1200px){#greetingView .system-work-examples .example{display:block;padding-top:20px}}
 
-#moduleSystemCreator.module-system-creator-container{padding:20px}
-#moduleSystemCreator .module-system-view-tree{min-height:50px}
-#moduleSystemCreator .module-system-view-link{fill:none;stroke:#88a6d4;stroke-width:2}#moduleSystemCreator .module-system-view-link.module-system-view-hover{stroke:#22406e}
-#moduleSystemCreator .module-system-view-node{cursor:pointer}#moduleSystemCreator .module-system-view-node .module-system-view-node-text{font-size:110%;fill:#22406e}
-#moduleSystemCreator .module-system-view-node .module-system-view-node-circle{fill:#f0f0f0;stroke:#88a6d4;stroke-width:2px}#moduleSystemCreator .module-system-view-node .module-system-view-node-circle.module-system-view-hover{stroke:#22406e}
-#moduleSystemCreator .module-system-view-node .module-system-view-node-with-children{fill:#e0e0e0}
+#moduleSystemCreator{padding:20px}#moduleSystemCreator .module-system-view-tree{min-height:400px}
+#moduleSystemCreator .module-system-view-editor{display:none;position:fixed}
+#moduleSystemCreator .d3tree-link{fill:none;stroke:#88a6d4;stroke-width:2}#moduleSystemCreator .d3tree-link.d3tree-hover{stroke:#22406e}
+#moduleSystemCreator .d3tree-node{cursor:pointer}#moduleSystemCreator .d3tree-node .d3tree-node-text{fill:#22406e}
+#moduleSystemCreator .d3tree-node .d3tree-node-circle{fill:#f0f0f0;stroke:#88a6d4;stroke-width:2px}#moduleSystemCreator .d3tree-node .d3tree-node-circle.d3tree-hover{stroke:#22406e}
+#moduleSystemCreator .d3tree-node .d3tree-node-with-children{fill:#e0e0e0}
+#moduleSystemCreator .d3tree-node-context-option{fill:none;stroke:none}#moduleSystemCreator .d3tree-node-context-option .glyphicon{color:#5573a1;position:static;cursor:pointer}#moduleSystemCreator .d3tree-node-context-option .glyphicon:hover{color:#22406e}
 
 #passwordChangingView.password-changing-container{padding:20px}#passwordChangingView.password-changing-container .control-label{padding-left:15px;padding-top:0}
 
