@@ -159,6 +159,9 @@ Senseira.constants = Senseira.constants || {};
                 offsetAngle: Math.PI / 6,
                 distance: function () {
                     return this.radius + this.padding + nodeConf.radius;
+                },
+                diameter: function () {
+                    return this.radius * 2;
                 }
             };
 
@@ -212,7 +215,7 @@ Senseira.constants = Senseira.constants || {};
                 }
 
                 // Compute the new tree layout
-                var nodes = tree.nodes(root).reverse(),
+                var nodes = tree.nodes(root),
                     links = tree.links(nodes);
 
                 // Normalize tree width
@@ -230,7 +233,7 @@ Senseira.constants = Senseira.constants || {};
                         return d.id;
                     });
 
-                var nodeElementsEnter = nodeElements.enter().append("g")
+                var nodeElementsEnter = nodeElements.enter().insert("g", "g")
                     .attr("class", "d3tree-node")
                     .attr("transform", function () {
                         return "translate(" + parent._yScaled + "," + parent._xScaled + ")";
@@ -258,12 +261,17 @@ Senseira.constants = Senseira.constants || {};
                         var text = "";
                         if (d.parent) {
                             if (!d.parent.childrenTotal) d.parent.updateChildrenTotalValues();
-                            text = d.parent.childrenTotal ? ((Math.round(d._value / d.parent.childrenTotal * 1000) / 10).toFixed(1) + "%") : 0;
+                            text = (d.parent.childrenTotal ? (Math.round(d._value / d.parent.childrenTotal * 1000) / 10) : 0).toFixed(1) + "%";
                         }
                         return text;
                     });
 
                 nodeElementsEnter.append("text")
+                    .classed("d3tree-node-text d3tree-node-name", true)
+                    .classed("no-selection", true)
+                    .style("fill-opacity", 1e-6);
+
+                nodeElements.selectAll(".d3tree-node-name")
                     .attr("text-anchor", function (d) {
                         return d.hasChildren() ? "middle" : "start"
                     })
@@ -273,15 +281,10 @@ Senseira.constants = Senseira.constants || {};
                     .attr("dy", function (d) {
                         return (d.hasChildren() ? (-nodeConf.radius - 5) : 7) + "px";
                     })
-                    .classed("d3tree-node-text d3tree-node-name", true)
-                    .classed("no-selection", true)
-                    .style("fill-opacity", 1e-6);
-
-                nodeElements.selectAll(".d3tree-node-name")
                     .text(function (d) {
                         return d._name;
                     })
-                    .call(wrap, nodesIndent);
+                    .call(wrapText, nodesIndent);
 
                 // Transition nodes to their new position
                 var nodeElementsUpdate = nodeElements.transition()
@@ -413,7 +416,7 @@ Senseira.constants = Senseira.constants || {};
                 if (d) {
                     if (self.nodeWithContext != d) {
                         closeContextMenu();
-                        var contextContainer = svg_g.append("g")
+                        var contextContainer = svg_g.insert("g", "g")
                             .classed("d3tree-node-context", true)
                             .attr("transform", function () {
                                 return "translate(" + d.yScaled + "," + d.xScaled + ")";
@@ -430,17 +433,18 @@ Senseira.constants = Senseira.constants || {};
                                 .classed("d3tree-node-context-option-circle", true);
 
                             var span = option.append("svg:foreignObject")
-                                .attr("width", (contextConf.radius * 2))
-                                .attr("height", (contextConf.radius * 2))
+                                .attr("width", contextConf.diameter())
+                                .attr("height", contextConf.diameter())
                                 .attr("x", -contextConf.radius + "px")
                                 .attr("y", -contextConf.radius + "px")
                                 .append("xhtml:span")
                                 .classed(className, true)
                                 .style("font-size", "0px");
+
                             option.transition()
                                 .duration(animDuration)
                                 .attr("transform", function () {
-                                    var optAngle = (i - 1) * contextConf.offsetAngle,
+                                    var optAngle = i * contextConf.offsetAngle,
                                         optX = contextConf.distance() * Math.cos(optAngle),
                                         optY = contextConf.distance() * Math.sin(optAngle);
                                     return "translate(" + optX + "," + optY + ")";
@@ -463,12 +467,12 @@ Senseira.constants = Senseira.constants || {};
                             return option;
                         };
 
-                        if (d.depth < 2) createOption(0, "glyphicon glyphicon-plus-sign", addNode);
+                        if (d.depth < 2) createOption(-1, "glyphicon glyphicon-plus-sign", addNode);
                         if (d.hasChildren()) {
-                            if (d.expanded()) createOption(1, "glyphicon glyphicon-chevron-left", toggleNode);
-                            else createOption(1, "glyphicon glyphicon-chevron-right", toggleNode);
+                            if (d.expanded()) createOption(0, "glyphicon glyphicon-chevron-left", toggleNode);
+                            else createOption(0, "glyphicon glyphicon-chevron-right", toggleNode);
                         }
-                        if (d.parent) createOption(2, "glyphicon glyphicon-minus-sign", removeNode);
+                        if (d.parent) createOption(1, "glyphicon glyphicon-minus-sign", removeNode);
                         self.nodeWithContext = d;
                     } else {
                         closeContextMenu();
@@ -479,9 +483,26 @@ Senseira.constants = Senseira.constants || {};
 
             function removeNode(d) {
                 if (d) {
-                    closeContextMenu();
-                    d.remove();
-                    updateNode(d.parent);
+                    bootbox.dialog({
+                        title: "Вы уверены?",
+                        message: Senseira.constants.TreeNodeRemovalAlertMessage,
+                        buttons: {
+                            remove: {
+                                label: "Продолжить",
+                                className: "btn-danger",
+                                callback: function () {
+                                    closeContextMenu();
+                                    d.remove();
+                                    updateNode(d.parent);
+                                }
+                            },
+                            cancel: {
+                                label: "Отменить",
+                                className: "btn-default"
+                            }
+                        }
+                    });
+
                 }
             }
 
@@ -534,7 +555,7 @@ Senseira.constants = Senseira.constants || {};
                 }
             };
 
-            function wrap(text, width) {
+            function wrapText(text, width) {
                 text.each(function () {
                     var text = d3.select(this),
                         words = text.text().split(/\s+/).reverse(),
