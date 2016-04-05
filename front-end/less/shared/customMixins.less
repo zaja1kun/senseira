@@ -10,3 +10,38 @@
         padding-top: 0;
     }
 }
+
+.disable-text-select-mixin() {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.scroll-button-mixin(@hoveredBackground: #E1E1E1, @glyphiconSize: 11px) {
+    @scrollButtonPadding: 0 5px;
+    @hoveredScrollButtonBackground: @hoveredBackground;
+    @activeScrollButtonBackground: darken(@hoveredBackground, 10%);
+
+    .scroll-button {
+        padding: @scrollButtonPadding;
+
+        text-align: center;
+
+        cursor: pointer;
+
+        .glyphicon:before {
+            font-size: @glyphiconSize;
+            line-height: @glyphiconSize;
+        }
+
+        &:hover {
+            background-color: @hoveredScrollButtonBackground;
+        }
+
+        &:active {
+            background-color: @activeScrollButtonBackground;
+        }
+    }
+}

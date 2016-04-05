@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senseira : Labs Issuance</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link type="text/css" rel="stylesheet" href="css/reset.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="css/core.css"/>
+    <link type="text/css" rel="stylesheet" href="css/animate.css"/>
+    <script type="text/javascript" src="scripts/frameworks/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="scripts/custom/alert.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Senseira</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <!-- Partial view place -->
+            <!-- Partial view place -->
+        </div>
+    </div>
+</nav>
+<div class="container main-container body-content">
+    <ul id="alertList">
+    </ul>
+
+    <!-- Filters partial view -->
+    <div class="filters-group clearfix">
+        <form class="form-inline pull-right">
+            <div class="form-group">
+                <label for="groupSelect"></label>
+                <select id="groupSelect"
+                        class="form-control"
+                        data-bind="options: groupFilterOptions,
+                                   value: selectedGroup,
+                                   optionsCaption: '-Группа-'">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subgroupSelect"></label>
+                <select id="subgroupSelect"
+                        class="form-control"
+                        data-bind="options: subgroupFilterOptions,
+                                   value: selectedSubgroup,
+                                   optionsCaption: '-Подгруппа-'">
+                </select>
+            </div>
+        </form>
+    </div>
+    <!-- Filters partial view -->
+
+    <!-- Partial view place -->
+    <div data-bind="template: { name: 'taskAddingModalTemplate', data: taskAddingModal }"></div>
+
+    <div id="labsIssuanceView" class="labs-issuance-container clearfix">
+        <section class="col-md-3">
+            <div data-bind="template: { name: 'singleSelectListTemplate', data: tasksSingleSelectList }"></div>
+            <div class="task-adding-button-container">
+                <button type="button"
+                        class="btn btn-default btn-block"
+                        data-bind="click: addNewTask">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Добавить задание
+                </button>
+            </div>
+        </section>
+        <section class="col-md-6">
+            <div data-bind="template: { name: 'tasksIssuanceFormTemplate', data: taskIssuanceForm }"></div>
+        </section>
+        <section class="col-md-3">
+            <div data-bind="template: { name: 'multiSelectListTemplate', data: studentsMultiSelectList }"></div>
+        </section>
+    </div>
+    <!-- Partial view place -->
+    <footer class="panel-footer">
+        <p class="text-center">
+            BuddhaSoft &copy; Все права защищены.</br>
+            Текущая версия v0.0.0
+        </p>
+    </footer>
+</div>
+
+<!-- Templates partial view -->
+<script id="taskAddingModalTemplate" type="text/html">
+    <div id="taskAddingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="taskAddingModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">
+                        <!-- ko if: isAddingMode -->
+                        <span>Добавление задания</span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isAddingMode -->
+                        <span>Обновление задания</span>
+                        <!-- /ko -->
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskNumber" class="control-label">Номер:</label>
+                            <input id="taskNumber"
+                                   type="number"
+                                   class="form-control"
+                                   data-bind="value: taskNumber"/>
+                        </div>
+                        <!-- ko if: isAddingMode -->
+                        <div class="form-group">
+                            <label for="taskTypes">Тип задания:</label>
+                            <select id="taskTypes"
+                                    class="form-control"
+                                    data-bind="options: taskTypeOptions, value: taskTypeSelectedOption">
+                            </select>
+                        </div>
+                        <!-- /ko -->
+                        <div class="form-group">
+                            <label for="taskTheme" class="control-label">Тема:</label>
+                            <input id="taskTheme"
+                                   type="text"
+                                   class="form-control"
+                                   data-bind="value: taskTheme"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription" class="control-label">Описание:</label>
+                            <textarea class="form-control"
+                                      id="taskDescription"
+                                      data-bind="value: taskDescription">
+                            </textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer clearfix">
+                    <!-- ko ifnot: isAddingMode -->
+                    <button type="button"
+                            class="btn btn-danger pull-left"
+                            data-bind="click: deleteTask">Удалить задание</button>
+                    <!-- /ko -->
+                    <button type="button" class="btn btn-primary" data-bind="click: processAction">
+                        <!-- ko if: isAddingMode -->
+                        <span>Добавить</span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isAddingMode -->
+                        <span>Обновить</span>
+                        <!-- /ko -->
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="singleSelectListTemplate" type="text/html">
+    <div class="single-select-list-container"
+         data-bind="event: { wheel: scrollList },
+                    visible: singleSelectListIsVisible()">
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToTop,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        </div>
+
+        <ul class="single-select-list" data-bind="foreach: listOfVisibleItems">
+            <li class="single-select-list-item"
+                data-bind="css: cssClass, click: $parent.selectItem, event: { contextmenu: $parent.callContextMenuCallback }">
+                <h6 class="item-title" data-bind="text: title"></h6>
+                <p class="item-text" data-bind="text: text"></p>
+            </li>
+        </ul>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToBottom,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+        </div>
+    </div>
+</script>
+
+<script id="tasksIssuanceFormTemplate" type="text/html">
+    <div id="taskIssuanceForm" data-bind="visible: isVisible()">
+        <div class="panel panel-default task-issuance-panel">
+            <div class="panel-heading">Распредение задания:</div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <h4 class="task-title" data-bind="text: title"></h4>
+                        <h5 class="task-theme">
+                            <span class="entered-text">Тема: </span>
+                            <span data-bind="text: theme"></span>
+                        </h5>
+                        <p class="task-description">
+                            <span class="entered-text">Описание: </span>
+                            <span data-bind="text: description"></span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-bind="checked: isIssuanceByVariantRequired"/>
+                                Распределить задания по вариантам
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group variant-list-container" data-bind="visible: isVariantsListContainerVisible()">
+                        <ul class="variant-list" data-bind="foreach: variants">
+                            <li class="variant">
+                                <span class="variant-label" data-bind="text: studentName"></span>
+                                <textarea class="form-control" data-bind="value: variantDescription">
+                                </textarea>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group buttons-group clearfix">
+                        <div class="inline-container pull-right">
+                            <button type="button" class="btn btn-primary">Распределить задание</button>
+                            <button type="button" class="btn btn-default" data-bind="click: hide">Отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="multiSelectListTemplate" type="text/html">
+    <div class="multi-select-list-container"
+         data-bind="event: { wheel: scrollList },
+                    visible: multiSelectListIsVisible()">
+        <div class="selecting-statistic" data-bind="text: selectingStatisticText">
+        </div>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToTop,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        </div>
+
+        <ul class="multi-select-list" data-bind="foreach: listOfVisibleItems">
+            <li class="multi-select-list-item"
+                data-bind="css: { 'selected': isSelected(), 'additional-info-visible': isAdditionalInfoVisible },
+                                   event: { contextmenu: toggleAdditional },
+                                   click: toggleSelected">
+
+                <!-- ko if: $parent.isNumberedList -->
+                <div class="item-number" data-bind="text: number"></div>
+                <!-- /ko -->
+
+                <div class="item-info">
+                    <div class="item-main-info" data-bind="text: mainInformation"></div>
+                    <div class="item-additional-info">
+                        <ul class="additional-info-list" data-bind="foreach: additionalInformation">
+                            <li class="additional-info-item" data-bind="text: $data"></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+        <div class="scroll-button"
+             data-bind="event: { mousedown: scrollToBottom,
+                                 mouseup: stopScrolling,
+                                 mouseout: stopScrolling }">
+            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+        </div>
+
+        <div class="multi-select-list-footer">
+        </div>
+    </div>
+</script>
+<!-- Templates partial view -->
+
+<!-- Body script place -->
+<script type="text/javascript" src="scripts/custom/components/scrollableList.js"></script>
+<script type="text/javascript" src="scripts/custom/components/multiSelectList.js"></script>
+<script type="text/javascript" src="scripts/custom/components/singleSelectList.js"></script>
+<script type="text/javascript" src="scripts/custom/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom/initialAlerting.js"></script>
+<script type="text/javascript" src="scripts/senseira/constants.js"></script>
+<script type="text/javascript" src="scripts/senseira/baseForm.js"></script>
+<script type="text/javascript" src="scripts/senseira/templates/taskAddingModal.js"></script>
+<script type="text/javascript" src="scripts/senseira/templates/taskIssuanceForm.js"></script>
+<script type="text/javascript" src="scripts/senseira/labIssuance.js"></script>
+<!-- Body script place -->
+</body>
+</html>

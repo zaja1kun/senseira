@@ -1,0 +1,107 @@
+@import "../shared/customMixins";
+
+@multiSelectListBackground: #fff;
+@selectedMultiSelectListItemColor: #fff;
+@selectedMultiSelectListItemBackground: #2F5795;
+@hoveredMultiSelectListItemBackground: #E1E1E1;
+@hoveredSelectedListItemBackground: #396BB7;
+
+@multiSelectListHeaderPadding: 10px 5px;
+@multiSelectListFooterPadding: 10px 5px;
+@multiSelectListElementPadding: 5px;
+@multiSelectListItemNumberPadding: 5px;
+
+@glyphiconSize: 11px;
+
+@multiSelectListBorder: 1px solid #ccc;
+
+.multi-select-list-container {
+    background-color: @multiSelectListBackground;
+    border-radius: 5px;
+    cursor: default;
+
+    .disable-text-select-mixin();
+
+    .selecting-statistic {
+        padding: @multiSelectListHeaderPadding;
+
+        text-align: center;
+
+        border-bottom: @multiSelectListBorder;
+    }
+
+    .scroll-button-mixin();
+
+    .multi-select-list {
+        margin-bottom: 0;
+
+        border-top: @multiSelectListBorder;
+        border-bottom: @multiSelectListBorder;
+
+        .multi-select-list-item {
+            cursor: pointer;
+
+            &:not(:last-child) {
+                border-bottom: @multiSelectListBorder;
+            }
+
+            .item-number {
+                display: inline-block;
+                width: 13%;
+                vertical-align: middle;
+                padding: @multiSelectListItemNumberPadding;
+
+                border-right: @multiSelectListBorder;
+            }
+
+            .item-info {
+                display: inline-block;
+                vertical-align: middle;
+                padding: @multiSelectListElementPadding;
+
+                .item-additional-info {
+                    display: none;
+                }
+            }
+
+            &.selected {
+                color: @selectedMultiSelectListItemColor;
+                background-color: @selectedMultiSelectListItemBackground;
+            }
+
+            transform: scale(1);
+            transition-property: transform;
+            transition-duration: 90ms;
+            transition-timing-function: ease-out;
+
+            &.additional-info-visible {
+                transform: scale(1.05);
+                background-color: @multiSelectListBackground;
+
+                .item-info {
+                    .item-additional-info {
+                        display: block;
+                    }
+                }
+
+                &.selected {
+                    color: @selectedMultiSelectListItemColor;
+                    background-color: @selectedMultiSelectListItemBackground;
+                }
+            }
+
+            &:hover {
+                background-color: @hoveredMultiSelectListItemBackground;
+
+                &.selected {
+                    background-color: @hoveredSelectedListItemBackground
+                }
+            }
+        }
+    }
+
+    .multi-select-list-footer {
+        padding: @multiSelectListFooterPadding;
+        border-top: @multiSelectListBorder;
+    }
+}

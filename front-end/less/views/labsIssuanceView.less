@@ -1,0 +1,50 @@
+@import "../shared/constants";
+@import "../shared/customMixins";
+
+@variantListContainerBorder: 1px solid #ccc;
+@variantListLargeMaxHeight: 180px;
+
+#labsIssuanceView {
+    &.labs-issuance-container {
+        padding: @mainOffset;
+
+        .control-label-mixin();
+
+        .task-adding-button-container {
+            padding: 10px 0;
+        }
+
+        #taskIssuanceForm {
+            .task-issuance-panel {
+                .task-title {
+                    font-weight: bold;
+                }
+
+                .entered-text {
+                    font-weight: bold;
+                }
+
+                .variant-list-container {
+                    .variant-list {
+                        .variant {
+                            padding-bottom: 10px;
+
+                            .variant-label {
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+                @media screen and (min-width: @largeScreenWidth) {
+                    .variant-list-container {
+                        .variant-list {
+                            max-height: @variantListLargeMaxHeight;
+                            overflow-y: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
