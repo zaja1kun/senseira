@@ -18,7 +18,7 @@
   }
 
   & .d3tree-link {
-    .d3tree-hover(@treeNodeHoverColor);
+    .d3tree-highlight(@treeNodeHoverColor);
     fill: none;
     stroke: @treeLinkColor;
     stroke-width: 2;
@@ -31,11 +31,10 @@
     }
 
     & .d3tree-node-circle {
-      .d3tree-hover(@treeNodeHoverColor);
+      .d3tree-highlight(@treeNodeHoverColor);
       fill: @mainContainerBackground;
       stroke: @treeLinkColor;
       stroke-width: 2px;
-
     }
 
     & .d3tree-node-with-children {

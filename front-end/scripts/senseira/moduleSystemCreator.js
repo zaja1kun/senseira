@@ -238,7 +238,6 @@ Senseira.constants = Senseira.constants || {};
                     .attr("transform", function () {
                         return "translate(" + parent._yScaled + "," + parent._xScaled + ")";
                     })
-                    .on("click", toggleNodeEditMode)
                     .on("contextmenu", openContextMenu);
 
                 nodeElementsEnter.append("circle")
@@ -343,7 +342,7 @@ Senseira.constants = Senseira.constants || {};
                     })
                     .remove();
 
-                var highlightNodePath = function (d, mouseover) {
+                var highlightNodePath = function (d, highlightType, show) {
                     if (d) {
                         var node = nodeElements.filter(function (el) {
                             return d.id == el.id;
@@ -351,22 +350,40 @@ Senseira.constants = Senseira.constants || {};
                         var link = linkElements.filter(function (lnk) {
                             return d == lnk.target;
                         });
-                        if (link) link.classed("d3tree-hover", mouseover);
-                        if (node) node.select("circle").classed("d3tree-hover", mouseover);
-                        if (d.parent) highlightNodePath(d.parent, mouseover);
+                        switch (highlightType) {
+                            case 'hover':
+                                if (link) link.classed("d3tree-hover", show);
+                                if (node) node.select("circle").classed("d3tree-hover", show);
+                                break;
+                            case 'select':
+                                if (link) link.classed("d3tree-selected", show);
+                                if (node) node.select("circle").classed("d3tree-selected", show);
+                                break;
+                            default:
+                                break;
+                        }
+                        if (d.parent) highlightNodePath(d.parent, highlightType, show);
                     }
                 };
 
                 var mouseenter = function (d) {
-                    highlightNodePath(d, true);
+                    highlightNodePath(d, 'hover', true);
                 };
 
                 var mouseleave = function (d) {
-                    highlightNodePath(d, false);
+                    highlightNodePath(d, 'hover', false);
+                };
+
+                var mouseclick = function (d) {
+                    var hideSelection = self.editingNode() == d && $(".module-system-view-editor").is(":visible");
+                    d3.selectAll(".d3tree-selected").classed("d3tree-selected", false);
+                    if (!hideSelection) highlightNodePath(d, 'select', true);
+                    toggleNodeEditMode(d);
                 };
 
                 nodeElements.on("mouseenter", mouseenter)
-                    .on("mouseleave", mouseleave);
+                    .on("mouseleave", mouseleave)
+                    .on("click", mouseclick);
 
                 closeContextMenu();
 
@@ -532,15 +549,16 @@ Senseira.constants = Senseira.constants || {};
                 var editor = $(".module-system-view-editor");
                 var editorVisible = editor.is(":visible");
                 var nodeClickedTwice = self.editingNode() == d;
+                var hideEditor = editorVisible && nodeClickedTwice;
 
                 d3.select(".module-system-view-tree")
-                    .classed("col-md-9", !(editorVisible && nodeClickedTwice))
-                    .classed("col-md-12", editorVisible && nodeClickedTwice);
+                    .classed("col-md-9", !(hideEditor))
+                    .classed("col-md-12", hideEditor);
 
-                if (editorVisible && nodeClickedTwice) {
-                    showEditor(false);
-                } else if (!editorVisible) {
+                if (!editorVisible) {
                     showEditor(true);
+                } else if (nodeClickedTwice) {
+                    showEditor(false);
                 }
 
                 self.editingNode(d);

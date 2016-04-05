@@ -11,7 +11,10 @@
     }
 }
 
-.d3tree-hover(@strokeColor) {
+.d3tree-highlight(@strokeColor) {
+    &.d3tree-selected {
+        stroke: @strokeColor + #222;
+    }
     &.d3tree-hover {
         stroke: @strokeColor;
     }
