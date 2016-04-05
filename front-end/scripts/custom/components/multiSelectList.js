@@ -22,7 +22,7 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
 
     function MultiSelectList(settings) {
 
-        function MultiSelectListItem(number, id, mainInformation, additionalInformation) {
+        function MultiSelectListItem(parent, number, id, mainInformation, additionalInformation) {
             var self = this;
 
             self.number = number;
@@ -37,7 +37,13 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
             }
 
             self.toggleSelected = function() {
-                self.isSelected(!self.isSelected());
+                if (self.isSelected()) {
+                    self.isSelected(false);
+                    parent.callDeselectItemHandler(self.id);
+                } else {
+                    self.isSelected(true);
+                    parent.callSelectItemHandler(self.id)
+                }
             };
 
             self.toggleAdditional = function() {
@@ -55,6 +61,8 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
 
         self.isNumberedList = false;
         self.maxCountOfVisibleItems = 0;
+        self.selectItemHandler = null;
+        self.deselectItemHandler = null;
 
         self.multiSelectListIsVisible = ko.computed(function() {
             return self.listItems().length > 0;
@@ -92,7 +100,7 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
                     var number = isNumberedItems ? item.number : index + 1;
 
                     result.push(
-                        new MultiSelectListItem(number, item.id, item.mainInformation, item.additionalInformation)
+                        new MultiSelectListItem(self, number, item.id, item.mainInformation, item.additionalInformation)
                     );
                 });
             }
@@ -130,7 +138,7 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
         self.getIdOfSelectedItems = function() {
             var result = [];
 
-            ko.utils.arrayForEach(self.listItems(), function(item) {
+            ko.utils.arrayForEach(self.listOfVisibleItems(), function(item) {
                 if (item.isSelected()) {
                     result.push(item.id);
                 }
@@ -145,6 +153,30 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
 
         self.setNewVisibilityWindow = function(newSettings) {
             setNewVisibilityWindow(newSettings);
+        };
+
+        self.setSelectItemHandler = function(handler) {
+            if (typeof handler === 'function') {
+                self.selectItemHandler = handler;
+            }
+        };
+
+        self.callSelectItemHandler = function(id) {
+            if (typeof self.selectItemHandler === 'function') {
+                self.selectItemHandler(id);
+            }
+        };
+
+        self.setDeselectItemHandler = function(handler) {
+            if (typeof handler === 'function') {
+                self.deselectItemHandler = handler;
+            }
+        };
+
+        self.callDeselectItemHandler = function(id) {
+            if (typeof self.deselectItemHandler === 'function') {
+                self.deselectItemHandler(id)
+            }
         };
 
         self.selectAll = function() {

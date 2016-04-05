@@ -58,7 +58,7 @@
 #labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .task-title{font-weight:bold}
 #labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .entered-text{font-weight:bold}
 #labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .variant-list-container .variant-list .variant{padding-bottom:10px}#labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .variant-list-container .variant-list .variant .variant-label{font-weight:bold}
-@media screen and (min-width:1200px){#labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .variant-list-container .variant-list{max-height:160px;overflow-y:scroll}}
+@media screen and (min-width:1200px){#labsIssuanceView.labs-issuance-container #taskIssuanceForm .task-issuance-panel .variant-list-container .variant-list{max-height:180px;overflow-y:auto}}
 
 #passwordChangingView.password-changing-container{padding:20px}#passwordChangingView.password-changing-container .control-label{padding-left:15px;padding-top:0}
 

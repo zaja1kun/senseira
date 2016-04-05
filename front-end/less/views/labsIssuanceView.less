@@ -2,7 +2,7 @@
 @import "../shared/customMixins";
 
 @variantListContainerBorder: 1px solid #ccc;
-@variantListLargeMaxHeight: 160px;
+@variantListLargeMaxHeight: 180px;
 
 #labsIssuanceView {
     &.labs-issuance-container {
@@ -40,7 +40,7 @@
                     .variant-list-container {
                         .variant-list {
                             max-height: @variantListLargeMaxHeight;
-                            overflow-y: scroll;
+                            overflow-y: auto;
                         }
                     }
                 }

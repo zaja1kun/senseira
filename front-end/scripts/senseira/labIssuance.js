@@ -73,6 +73,7 @@ Senseira.alerting = Senseira.alerting || {};
                 self.subgroupFilterOptions([]);
                 self.selectedSubgroup(null);
             }
+            self.taskIssuanceForm.clearVariants();
         });
 
         self.selectedSubgroup.subscribe(function(newValue) {
@@ -89,6 +90,7 @@ Senseira.alerting = Senseira.alerting || {};
                     self.studentsMultiSelectList.setNewSettings(studentsMultiSelectListSettings);
                 }
             }
+            self.taskIssuanceForm.clearVariants();
         });
 
         $(window).resize(function() {
@@ -101,15 +103,30 @@ Senseira.alerting = Senseira.alerting || {};
         //#region Private Methods
 
         var getGroupByNumber = function(number) {
-            return ko.utils.arrayFirst(groups, function(group) {
-                return group.number === number;
-            });
+            if (groups) {
+                return ko.utils.arrayFirst(groups, function(group) {
+                    return group.number === number;
+                });
+            }
         };
 
         var getStudentsBySubgroup = function(students, subgroup) {
-            return ko.utils.arrayFilter(students, function(student) {
-                return student.subgroup.indexOf(subgroup) !== -1;
-            });
+            if (students) {
+                return ko.utils.arrayFilter(students, function(student) {
+                    return student.subgroup.indexOf(subgroup) !== -1;
+                });
+            }
+        };
+
+        var getStudentById = function(studentId) {
+            var group = getGroupByNumber(parseInt(self.selectedGroup()));
+
+            if (group) {
+                return ko.utils.arrayFirst(group.students, function(student) {
+                    return student.id === studentId;
+                });
+            }
+            return null;
         };
 
         var getTypeNameByTypeId = function(typeId) {
@@ -182,6 +199,20 @@ Senseira.alerting = Senseira.alerting || {};
             }
         };
 
+        var setStudentsToVariantsList = function(arrayOfStudentId) {
+            if (arrayOfStudentId) {
+                self.taskIssuanceForm.clearVariants();
+
+                ko.utils.arrayForEach(arrayOfStudentId, function(studentId) {
+                    var student = getStudentById(studentId);
+
+                    if (student) {
+                        self.taskIssuanceForm.addStudentToVariantList(student);
+                    }
+                });
+            }
+        };
+
         var deleteTaskFromList = function(index) {
             taskList.splice(index, 1);
             tasksSingleSelectListSettings.items.splice(index, 1);
@@ -224,6 +255,9 @@ Senseira.alerting = Senseira.alerting || {};
         };
 
         var transformDataToMultiSelectItems = function(students) {
+            if (!students) {
+                return null;
+            }
             var result = [];
 
             ko.utils.arrayForEach(students, function(student) {
@@ -524,14 +558,18 @@ Senseira.alerting = Senseira.alerting || {};
             ];
 
             // task initializing
-            ko.utils.arrayForEach(tasksListFromServer, function(task) {
-                addNewTaskToList(task);
-            });
+            if (tasksListFromServer) {
+                ko.utils.arrayForEach(tasksListFromServer, function(task) {
+                    addNewTaskToList(task);
+                });
+            }
 
             // filter options initializing
-            self.groupFilterOptions(ko.utils.arrayMap(groups, function(group) {
-                return group.number;
-            }));
+            if (groups) {
+                self.groupFilterOptions(ko.utils.arrayMap(groups, function(group) {
+                    return group.number;
+                }));
+            }
         };
 
         var taskAddingCallback = function(task) {
@@ -559,7 +597,7 @@ Senseira.alerting = Senseira.alerting || {};
             Senseira.alerting.success('Задача успешно удалена.');
         };
 
-        var showTaskIssuanceForm = function(task) {
+        var toggleTaskIssuanceForm = function(task) {
             if (task.isSelected) {
                 var taskIssuanceFormData = transformToTaskIssuanceFormData(task);
                 self.taskIssuanceForm.show(taskIssuanceFormData);
@@ -568,15 +606,26 @@ Senseira.alerting = Senseira.alerting || {};
             }
         };
 
+        var selectStudentInListCallback = function(studentId) {
+            var student = getStudentById(studentId);
+            self.taskIssuanceForm.addStudentToVariantList(student);
+        };
+
+        var deselectStudentsInListCallback = function(studentId) {
+            self.taskIssuanceForm.removeStudentFromVariantList(studentId);
+        };
+
         var subscribeOnEvents = function() {
             self.tasksSingleSelectList.setSelectEventHandler(function(data) {
-                showTaskIssuanceForm(data);
+                toggleTaskIssuanceForm(data);
             });
 
             self.tasksSingleSelectList.setContextMenuHandler(updateTaskCallback.bind(self));
             self.taskAddingModal.setTaskUpdatingHandler(updateTaskInListCallback.bind(self));
             self.taskAddingModal.setTaskAddingHandler(taskAddingCallback.bind(self));
             self.taskAddingModal.setTaskDeletingHandler(deleteTaskFromListCallback.bind(self));
+            self.studentsMultiSelectList.setSelectItemHandler(selectStudentInListCallback.bind(self));
+            self.studentsMultiSelectList.setDeselectItemHandler(deselectStudentsInListCallback.bind(self));
         };
 
         var init = function() {

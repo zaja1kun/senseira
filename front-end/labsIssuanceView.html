@@ -225,33 +225,18 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group variant-list-container" data-bind="visible: isIssuanceByVariantRequired">
-                        <ul class="variant-list">
+                    <div class="form-group variant-list-container" data-bind="visible: isVariantsListContainerVisible()">
+                        <ul class="variant-list" data-bind="foreach: variants">
                             <li class="variant">
-                                <span class="variant-label">Вася Пупкин</span>
-                                <textarea class="form-control">
-                                </textarea>
-                            </li>
-                            <li class="variant">
-                                <span class="variant-label">Вася Пупкин</span>
-                                <textarea class="form-control">
-                                </textarea>
-                            </li>
-                            <li class="variant">
-                                <span class="variant-label">Вася Пупкин</span>
-                                <textarea class="form-control">
-                                </textarea>
-                            </li>
-                            <li class="variant">
-                                <span class="variant-label">Вася Пупкин</span>
-                                <textarea class="form-control">
+                                <span class="variant-label" data-bind="text: studentName"></span>
+                                <textarea class="form-control" data-bind="value: variantDescription">
                                 </textarea>
                             </li>
                         </ul>
                     </div>
                     <div class="form-group buttons-group clearfix">
                         <div class="inline-container pull-right">
-                            <button type="submit" class="btn btn-primary">Распределить задание</button>
+                            <button type="button" class="btn btn-primary">Распределить задание</button>
                             <button type="button" class="btn btn-default" data-bind="click: hide">Отмена</button>
                         </div>
                     </div>
