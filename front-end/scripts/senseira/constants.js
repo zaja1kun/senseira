@@ -24,5 +24,6 @@ Senseira.constants = {
     TaskNumberLessThanZeroMessage: 'Номер задания не может быть меньше 0',
     TaskNumberGreatThanMaxValueMessage: 'Номер задания не может быть больше 100000',
     TaskNumberMaxValue: 100000,
-    DefaultTaskId: -1
+    DefaultTaskId: -1,
+    TreeNodeRemovalAlertMessage: 'Удаление элемента отменить невозможно!' + '</br>' + 'Все дочерние элементы будут также удалены.'
 };

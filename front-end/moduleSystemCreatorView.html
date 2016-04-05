@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Senseira : Modules</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link type="text/css" rel="stylesheet" href="css/reset.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="css/core.css"/>
+    <link type="text/css" rel="stylesheet" href="css/animate.css"/>
+    <script type="text/javascript" src="scripts/frameworks/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript" src="scripts/frameworks/d3.v3.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap/bootbox.min.js"></script>
+    <script type="text/javascript" src="scripts/custom/alert.js"></script>
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Senseira</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <!-- Partial view place -->
+            <!-- Partial view place -->
+        </div>
+    </div>
+</nav>
+<div class="container main-container body-content">
+    <ul id="alertList">
+    </ul>
+
+    <!-- Partial view place -->
+    <div id="moduleSystemCreator" class="module-system-creator-container clearfix">
+        <div class="module-system-view-tree col-md-12">
+        </div>
+        <div class="module-system-view-editor" data-bind="if: editingNode">
+            <div class="panel panel-default" data-bind="with: editingNode">
+                <div class="panel-heading no-selection">Информация</div>
+                <div class="panel-body">
+                    <div class="form-group col-sm-12">
+                        <label for="nodeNameInput" class="control-label no-selection">Название</label>
+                        <input type="text"
+                               class="form-control"
+                               id="nodeNameInput"
+                               placeholder="Название"
+                               data-bind="value: name"/>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label for="nodeDescInput" class="control-label no-selection">Описание</label>
+                        <textarea class="form-control"
+                                  rows="2"
+                                  id="nodeDescInput"
+                                  placeholder="Введите краткое описание"
+                                  data-bind="value: description"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label for="nodeValueInput" class="control-label no-selection">Весовой коэффициент</label>
+                        <input type="number"
+                               class="form-control"
+                               id="nodeValueInput"
+                               min="0"
+                               step="0.1"
+                               placeholder="0"
+                               data-bind="value: value"/>
+                    </div>
+                    <div class="form-group buttons-group col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" data-bind="click: $parent.submitNodeChanges">Сохранить</button>
+                        <button type="reset" class="btn btn-danger" data-bind="click: discardChanges">Отменить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partial view place -->
+
+    <footer class="panel-footer">
+        <p class="text-center">
+            BuddhaSoft &copy; Все права защищены.</br>
+            Текущая версия v0.0.0
+        </p>
+    </footer>
+</div>
+<!-- Body script place -->
+<script type="text/javascript" src="scripts/custom/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom/initialAlerting.js"></script>
+<script type="text/javascript" src="scripts/senseira/constants.js"></script>
+<script type="text/javascript" src="scripts/senseira/moduleSystemCreator.js"></script>
+<!-- Body script place -->
+</body>
+</html>
