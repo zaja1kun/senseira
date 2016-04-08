@@ -7,3 +7,6 @@ script:
   - cd back-end
   - ./manage.py test
   - cd -
+
+notifications:
+  slack: buddhasoftteam:rtLRBe7dUNDtDI97e9pwKpDV
