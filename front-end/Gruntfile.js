@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
         mocha: {
             all: {
-                src: ['testing/tests.html']
+                src: ['templates/testing/tests.html']
             },
             options: {
                 run: true
