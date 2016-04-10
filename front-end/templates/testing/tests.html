@@ -1,0 +1,44 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="../../node_modules/mocha/mocha.css" />
+</head>
+<body>
+<div id="mocha"></div>
+<script src="../../node_modules/mocha/mocha.js"></script>
+<script src="../../node_modules/chai/chai.js"></script>
+
+<script>
+    mocha.setup('bdd');
+    mocha.reporter('html');
+</script>
+
+<!-- Scripts for testing -->
+<script type="text/javascript" src="../../scripts/frameworks/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="../../scripts/frameworks/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="../../scripts/frameworks/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="../../scripts/bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="../../scripts/custom/plugins/alert.js"></script>
+<script type="text/javascript" src="../../scripts/custom/components/scrollableList.js"></script>
+<script type="text/javascript" src="../../scripts/custom/components/multiSelectList.js"></script>
+<script type="text/javascript" src="../../scripts/custom/components/singleSelectList.js"></script>
+<script type="text/javascript" src="../../scripts/custom/plugins/bootstrapPluginsInit.js"></script>
+<script type="text/javascript" src="../../scripts/custom/plugins/initialAlerting.js"></script>
+<script type="text/javascript" src="../../scripts/senseira/common/constants.js"></script>
+<script type="text/javascript" src="../../scripts/senseira/common/baseForm.js"></script>
+<script type="text/javascript" src="../../scripts/senseira/teacher_account/lab_issuance/forms/taskAddingModal.js"></script>
+<script type="text/javascript" src="../../scripts/senseira/teacher_account/lab_issuance/forms/taskIssuanceForm.js"></script>
+<script type="text/javascript" src="../../scripts/senseira/teacher_account/lab_issuance/labIssuance.js"></script>
+
+<!-- Tests -->
+<script src="../../scripts/senseira/testing/tests.js"></script>
+
+<script>
+    // Only tests run in real browser, injected script run if options.run == true
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+        mocha.run();
+    }
+</script>
+</body>
+</html>

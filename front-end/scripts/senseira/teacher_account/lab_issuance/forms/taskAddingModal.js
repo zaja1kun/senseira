@@ -36,6 +36,7 @@ Senseira.constructors.TaskAddingModal = (function(ko, $) {
         //#region Private Methods
 
         var clearForm = function() {
+            self.taskId = Senseira.constants.DefaultTaskId;
             self.validationErrors([]);
             self.taskNumber(null);
             self.taskTypeSelectedOption(self.taskTypeOptions[0]);
@@ -44,11 +45,13 @@ Senseira.constructors.TaskAddingModal = (function(ko, $) {
         };
 
         var fillForm = function(task) {
-            self.taskId = task.taskId;
-            self.taskNumber(task.taskNumber || null);
-            self.taskTypeSelectedOption(task.typeName || self.taskTypeOptions[0]);
-            self.taskTheme(task.taskTheme || '');
-            self.taskDescription(task.taskDescription || '');
+            if (task) {
+                self.taskId = task.taskId;
+                self.taskNumber(task.taskNumber || null);
+                self.taskTypeSelectedOption(task.typeName || self.taskTypeOptions[0]);
+                self.taskTheme(task.taskTheme || '');
+                self.taskDescription(task.taskDescription || '');
+            }
         };
 
         var getFormData = function() {
@@ -173,6 +176,16 @@ Senseira.constructors.TaskAddingModal = (function(ko, $) {
             clearForm();
             fillForm(task);
             open();
+        };
+
+        //#endregion
+
+        //#region Testing
+
+        self.testing = {
+            fillForm: fillForm,
+            clearForm: clearForm,
+            getFormData: getFormData
         };
 
         //#endregion

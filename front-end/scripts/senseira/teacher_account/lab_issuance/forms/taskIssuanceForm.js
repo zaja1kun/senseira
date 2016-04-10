@@ -13,6 +13,8 @@ Senseira.constructors.TaskIssuanceForm = (function() {
             self.variantDescription = ko.observable('');
         }
 
+        //#region Fields
+
         var self = this;
         self.taskId = Senseira.constants.DefaultTaskId;
 
@@ -23,9 +25,17 @@ Senseira.constructors.TaskIssuanceForm = (function() {
         self.isIssuanceByVariantRequired = ko.observable(false);
         self.variants = ko.observableArray([]);
 
+        //#endregion
+
+        //#region Computed Fields
+
         self.isVariantsListContainerVisible = ko.computed(function() {
             return self.isIssuanceByVariantRequired() && self.variants().length > 0;
         });
+
+        //#endregion
+
+        //#region Private methods
 
         var clear = function() {
             self.taskId = Senseira.constants.DefaultTaskId;
@@ -34,6 +44,10 @@ Senseira.constructors.TaskIssuanceForm = (function() {
             self.description('');
             self.isIssuanceByVariantRequired(false);
         };
+
+        //#endregion
+
+        //#region Public methods
 
         self.show = function(taskData, variantsData) {
             self.taskId = taskData.id;
@@ -72,6 +86,18 @@ Senseira.constructors.TaskIssuanceForm = (function() {
         self.clearVariants = function() {
             self.variants.removeAll();
         };
+
+        //#endregion
+
+        //#region Testing
+
+        self.testing = {
+            addStudentToVariantList: self.addStudentToVariantList,
+            removeStudentFromVariantList: self.removeStudentFromVariantList,
+            clearVariants: self.clearVariants
+        };
+
+        //#endregion
     }
 
     return TaskIssuanceForm;

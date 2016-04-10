@@ -23,12 +23,22 @@ module.exports = function(grunt) {
                     spawn: false
                 }
             }
+        },
+
+        mocha: {
+            all: {
+                src: ['testing/tests.html']
+            },
+            options: {
+                run: true
+            }
         }
     });
 
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks('grunt-mocha');
 
-    grunt.registerTask("default", ["less"]);
+    grunt.registerTask("default", ["less", "mocha"]);
     grunt.registerTask("develop", ["watch"]);
 };

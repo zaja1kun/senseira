@@ -108,6 +108,7 @@ Senseira.alerting = Senseira.alerting || {};
                     return group.number === number;
                 });
             }
+            return null;
         };
 
         var getStudentsBySubgroup = function(students, subgroup) {
@@ -116,6 +117,7 @@ Senseira.alerting = Senseira.alerting || {};
                     return student.subgroup.indexOf(subgroup) !== -1;
                 });
             }
+            return null;
         };
 
         var getStudentById = function(studentId) {
@@ -133,17 +135,20 @@ Senseira.alerting = Senseira.alerting || {};
             var mapping = ko.utils.arrayFirst(taskTypeIdToNameMapping, function(mapping) {
                 return mapping.typeId === typeId;
             });
-            return mapping.typeName;
+            return mapping ? mapping.typeName : null;
         };
 
         var getTypeIdByTypeName = function(typeName) {
             var mapping = ko.utils.arrayFirst(taskTypeIdToNameMapping, function(mapping) {
                 return mapping.typeName === typeName;
             });
-            return mapping.typeId;
+            return mapping ? mapping.typeId : null;
         };
 
         var transformToTaskForModal = function(taskFromList) {
+            if (!taskFromList) {
+                return null;
+            }
             return {
                 taskId: taskFromList.id,
                 taskNumber: taskFromList.number,
@@ -154,6 +159,9 @@ Senseira.alerting = Senseira.alerting || {};
         };
 
         var transformToTaskForList = function(taskFromModal) {
+            if (!taskFromModal) {
+                return null;
+            }
             return {
                 id: taskFromModal.taskId,
                 number: taskFromModal.taskNumber,
@@ -164,6 +172,9 @@ Senseira.alerting = Senseira.alerting || {};
         };
 
         var transformToSingleSelectListItem = function(task) {
+            if (!task) {
+                return null;
+            }
             var typeName = getTypeNameByTypeId(task.typeId);
             var title = [typeName, ' №', task.number].join('');
 
@@ -176,14 +187,17 @@ Senseira.alerting = Senseira.alerting || {};
         };
 
         var transformToTaskIssuanceFormData = function(task) {
+            if (!task) {
+                return null;
+            }
             var taskIndex = task.number;
             var taskFromList = taskList[taskIndex];
 
             return {
-                id: taskFromList.id,
+                id: taskFromList ? taskFromList.id : undefined,
                 title: task.title,
                 theme: task.text,
-                description: taskFromList.description
+                description: taskFromList ? taskFromList.description : undefined
             }
         };
 
@@ -646,7 +660,24 @@ Senseira.alerting = Senseira.alerting || {};
         //#endregion
 
         init();
+
+        //#region Testing
+
+        self.testing = {
+            getGroupByNumber: getGroupByNumber,
+            getStudentBySubgroup: getStudentsBySubgroup,
+            getStudentById: getStudentById,
+            getTypeNameByTypeId: getTypeNameByTypeId,
+            getTypeIdByTypeName: getTypeIdByTypeName,
+            transformToTaskForModal: transformToTaskForModal,
+            transformToTaskForList: transformToTaskForList,
+            transformToSingleSelectListItem: transformToSingleSelectListItem,
+            transformToTaskIssuanceFormData: transformToTaskIssuanceFormData
+        };
+
+        //#endregion
     }
 
+    Senseira.constructors.LabIssuance = LabIssuance;
     ko.applyBindings(new LabIssuance());
 })(ko, jQuery);
