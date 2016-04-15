@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from register.views import account
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
@@ -23,5 +24,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', include('greeting.urls', namespace='greeting')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^accounts/profile/$', TemplateView.as_view(template_name='account/profile.html')),
+    url(r'^accounts/profile/$', account),
 ]

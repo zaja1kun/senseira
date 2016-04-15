@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, verbose_name=User._meta.verbose_name)
+    user = models.OneToOneField(User, verbose_name=User._meta.verbose_name, related_name='user')
 
     def __str__(self):
         name = '{0} {1}'.format(self.user.first_name, self.user.last_name)
