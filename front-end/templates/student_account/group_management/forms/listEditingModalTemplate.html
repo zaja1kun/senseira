@@ -1,0 +1,56 @@
+<script id="listEditingModalTemplate" type="text/html">
+    <div id="listEditingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="taskAddingModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-hidden="true"
+                            >&times;</button>
+                    <h4 class="modal-title">Редактирование списка</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group students-group-list" data-bind="foreach: studentList">
+                        <li class="list-group-item">
+                            <button type="button"
+                                    class="close"
+                                    aria-hidden="true"
+                                    data-bind="click: $parent.removeStudent">&times;</button>
+                            <h4 class="list-group-item-heading" data-bind="text: name"></h4>
+                            <div class="list-group-item-text">
+                                <!-- ko if: $data.group -->
+                                <div>
+                                    Группа: <span data-bind="text: $data.group"></span>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: $data.email -->
+                                <div>
+                                    Email: <span data-bind="text: $data.email"></span>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                            <!-- ko if: $data.subgroup -->
+                            <div>
+                                <span>Подгруппы: </span>
+                                <ul class="tag-list" data-bind="foreach: $data.subgroup">
+                                    <li class="tag">
+                                        <span class="tag-name" data-bind="text: $data"></span>
+                                        <span class="tag-delete-button glyphicon glyphicon-remove-sign"
+                                              data-bind="click: $parents[1].removeSubgroupFromStudent.bind($parents[1], $parent, $data)">
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /ko -->
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer clearfix">
+                    <button type="button" class="btn btn-primary" data-bind="click: applyChanges">Применить</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

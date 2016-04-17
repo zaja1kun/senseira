@@ -11,7 +11,6 @@ Senseira.alerting = Senseira.alerting || {};
 
         var self = this;
         var groups = [];
-
         var taskList = [];
 
         var taskTypeIdToNameMapping = [
@@ -102,25 +101,25 @@ Senseira.alerting = Senseira.alerting || {};
 
         //#region Private Methods
 
-        var getGroupByNumber = function(number) {
+        function getGroupByNumber(number) {
             if (groups) {
                 return ko.utils.arrayFirst(groups, function(group) {
                     return group.number === number;
                 });
             }
             return null;
-        };
+        }
 
-        var getStudentsBySubgroup = function(students, subgroup) {
+        function getStudentsBySubgroup(students, subgroup) {
             if (students) {
                 return ko.utils.arrayFilter(students, function(student) {
                     return student.subgroup.indexOf(subgroup) !== -1;
                 });
             }
             return null;
-        };
+        }
 
-        var getStudentById = function(studentId) {
+        function getStudentById(studentId) {
             var group = getGroupByNumber(parseInt(self.selectedGroup()));
 
             if (group) {
@@ -129,23 +128,23 @@ Senseira.alerting = Senseira.alerting || {};
                 });
             }
             return null;
-        };
+        }
 
-        var getTypeNameByTypeId = function(typeId) {
+        function getTypeNameByTypeId(typeId) {
             var mapping = ko.utils.arrayFirst(taskTypeIdToNameMapping, function(mapping) {
                 return mapping.typeId === typeId;
             });
             return mapping ? mapping.typeName : null;
-        };
+        }
 
-        var getTypeIdByTypeName = function(typeName) {
+        function getTypeIdByTypeName(typeName) {
             var mapping = ko.utils.arrayFirst(taskTypeIdToNameMapping, function(mapping) {
                 return mapping.typeName === typeName;
             });
             return mapping ? mapping.typeId : null;
-        };
+        }
 
-        var transformToTaskForModal = function(taskFromList) {
+        function transformToTaskForModal(taskFromList) {
             if (!taskFromList) {
                 return null;
             }
@@ -156,9 +155,9 @@ Senseira.alerting = Senseira.alerting || {};
                 taskTheme: taskFromList.theme,
                 taskDescription: taskFromList.description
             }
-        };
+        }
 
-        var transformToTaskForList = function(taskFromModal) {
+        function transformToTaskForList(taskFromModal) {
             if (!taskFromModal) {
                 return null;
             }
@@ -169,9 +168,9 @@ Senseira.alerting = Senseira.alerting || {};
                 theme: taskFromModal.taskTheme,
                 description: taskFromModal.taskDescription
             }
-        };
+        }
 
-        var transformToSingleSelectListItem = function(task) {
+        function transformToSingleSelectListItem(task) {
             if (!task) {
                 return null;
             }
@@ -184,9 +183,9 @@ Senseira.alerting = Senseira.alerting || {};
                 title: title,
                 text: task.theme
             }
-        };
+        }
 
-        var transformToTaskIssuanceFormData = function(task) {
+        function transformToTaskIssuanceFormData(task) {
             if (!task) {
                 return null;
             }
@@ -199,9 +198,9 @@ Senseira.alerting = Senseira.alerting || {};
                 theme: task.text,
                 description: taskFromList ? taskFromList.description : undefined
             }
-        };
+        }
 
-        var addNewTaskToList = function(newTask) {
+        function addNewTaskToList(newTask) {
             taskList.push(newTask);
 
             var newListItem = transformToSingleSelectListItem(newTask);
@@ -211,9 +210,9 @@ Senseira.alerting = Senseira.alerting || {};
             if (!self.tasksSingleSelectList.isMaxListItemsLimitExceeded()) {
                 self.tasksSingleSelectList.setNewVisibilityWindow(tasksSingleSelectListSettings);
             }
-        };
+        }
 
-        var setStudentsToVariantsList = function(arrayOfStudentId) {
+        function setStudentsToVariantsList(arrayOfStudentId) {
             if (arrayOfStudentId) {
                 self.taskIssuanceForm.clearVariants();
 
@@ -225,9 +224,9 @@ Senseira.alerting = Senseira.alerting || {};
                     }
                 });
             }
-        };
+        }
 
-        var deleteTaskFromList = function(index) {
+        function deleteTaskFromList(index) {
             taskList.splice(index, 1);
             tasksSingleSelectListSettings.items.splice(index, 1);
             self.tasksSingleSelectList.deleteItem(index);
@@ -235,9 +234,9 @@ Senseira.alerting = Senseira.alerting || {};
             if (!self.tasksSingleSelectList.isMaxListItemsLimitExceeded()) {
                 self.tasksSingleSelectList.setNewVisibilityWindow(tasksSingleSelectListSettings);
             }
-        };
+        }
 
-        var setCountOfSingleSelectListVisibleItems = function() {
+        function setCountOfSingleSelectListVisibleItems() {
             var heightPerOneItem = Senseira.constants.HeightPerOneSingleSelectListElement;
             var minItemsCount = Senseira.constants.MinCountOfSingleSelectListElements;
             var screenHeight = $(window).height();
@@ -248,9 +247,9 @@ Senseira.alerting = Senseira.alerting || {};
                 tasksSingleSelectListSettings.maxCountOfVisibleItems = parseInt(screenHeight / heightPerOneItem);
             }
             self.tasksSingleSelectList.setNewVisibilityWindow(tasksSingleSelectListSettings);
-        };
+        }
 
-        var setCountOfMultiSelectListVisibleItems = function() {
+        function setCountOfMultiSelectListVisibleItems() {
             var heightPerOneItem = Senseira.constants.HeightPerOneMultiSelectListElement;
             var minItemsCount = Senseira.constants.MinCountOfMultiSelectListElements;
             var screenHeight = $(window).height();
@@ -261,14 +260,14 @@ Senseira.alerting = Senseira.alerting || {};
                 studentsMultiSelectListSettings.maxCountOfVisibleItems = parseInt(screenHeight / heightPerOneItem);
             }
             self.studentsMultiSelectList.setNewVisibilityWindow(studentsMultiSelectListSettings);
-        };
+        }
 
-        var resetMultiSelectListSettingsToInitial = function() {
+        function resetMultiSelectListSettingsToInitial() {
             studentsMultiSelectListSettings.items = [];
             self.studentsMultiSelectList.setNewSettings(studentsMultiSelectListSettings);
-        };
+        }
 
-        var transformDataToMultiSelectItems = function(students) {
+        function transformDataToMultiSelectItems(students) {
             if (!students) {
                 return null;
             }
@@ -291,9 +290,9 @@ Senseira.alerting = Senseira.alerting || {};
             });
 
             return result;
-        };
+        }
 
-        var loadData = function() {
+        function loadData() {
             // GET Ajax query to server
             groups = [
                 {
@@ -584,52 +583,52 @@ Senseira.alerting = Senseira.alerting || {};
                     return group.number;
                 }));
             }
-        };
+        }
 
-        var taskAddingCallback = function(task) {
+        function taskAddingCallback(task) {
             var newTask = transformToTaskForList(task);
             addNewTaskToList(newTask);
             Senseira.alerting.success('Задача успешно добалена');
-        };
+        }
 
         var taskIndex;
 
-        var updateTaskCallback = function(task) {
+        function updateTaskCallback(task) {
             taskIndex = task.number;
             var taskForModal = transformToTaskForModal(taskList[taskIndex]);
             self.taskAddingModal.openModalForUpdatingTask(taskForModal);
-        };
+        }
 
-        var updateTaskInListCallback = function(task) {
+        function updateTaskInListCallback(task) {
             taskList[taskIndex] = transformToTaskForList(task);
             self.tasksSingleSelectList.updateItem(taskIndex, transformToSingleSelectListItem(taskList[taskIndex]));
             Senseira.alerting.success('Задача успешно обновлена');
-        };
+        }
 
-        var deleteTaskFromListCallback = function(task) {
+        function deleteTaskFromListCallback(task) {
             deleteTaskFromList(taskIndex);
             Senseira.alerting.success('Задача успешно удалена.');
-        };
+        }
 
-        var toggleTaskIssuanceForm = function(task) {
+        function toggleTaskIssuanceForm(task) {
             if (task.isSelected) {
                 var taskIssuanceFormData = transformToTaskIssuanceFormData(task);
                 self.taskIssuanceForm.show(taskIssuanceFormData);
             } else {
                 self.taskIssuanceForm.hide();
             }
-        };
+        }
 
-        var selectStudentInListCallback = function(studentId) {
+        function selectStudentInListCallback(studentId) {
             var student = getStudentById(studentId);
             self.taskIssuanceForm.addStudentToVariantList(student);
-        };
+        }
 
-        var deselectStudentsInListCallback = function(studentId) {
+        function deselectStudentsInListCallback(studentId) {
             self.taskIssuanceForm.removeStudentFromVariantList(studentId);
-        };
+        }
 
-        var subscribeOnEvents = function() {
+        function subscribeOnEvents() {
             self.tasksSingleSelectList.setSelectEventHandler(function(data) {
                 toggleTaskIssuanceForm(data);
             });
@@ -640,14 +639,14 @@ Senseira.alerting = Senseira.alerting || {};
             self.taskAddingModal.setTaskDeletingHandler(deleteTaskFromListCallback.bind(self));
             self.studentsMultiSelectList.setSelectItemHandler(selectStudentInListCallback.bind(self));
             self.studentsMultiSelectList.setDeselectItemHandler(deselectStudentsInListCallback.bind(self));
-        };
+        }
 
-        var init = function() {
+        function init() {
             setCountOfSingleSelectListVisibleItems();
             setCountOfMultiSelectListVisibleItems();
             loadData();
             subscribeOnEvents();
-        };
+        }
 
         //#endregion
 
@@ -679,5 +678,9 @@ Senseira.alerting = Senseira.alerting || {};
     }
 
     Senseira.constructors.LabIssuance = LabIssuance;
-    ko.applyBindings(new LabIssuance());
+
+    if (!window.testingMode) {
+        ko.applyBindings(new LabIssuance());
+    }
+
 })(ko, jQuery);

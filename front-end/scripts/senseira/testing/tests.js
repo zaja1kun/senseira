@@ -301,3 +301,120 @@ describe('Task Issuance Form', function() {
         });
     });
 });
+
+var GroupManagement = null;
+
+if (Senseira.constructors.GroupManagement) {
+    GroupManagement = new Senseira.constructors.GroupManagement();
+} else {
+    throw 'Group management constructor not defined';
+}
+
+describe('Group Management Page', function() {
+    describe('studentIsExistInGroupList()', function() {
+        it('should return false if student not exist in list', function() {
+            var result = GroupManagement.testing.studentIsExistInGroupList(120);
+
+            chai.assert.equal(result, false);
+        });
+
+        it('should return false if passed student id is undefined', function() {
+            var result1 = GroupManagement.testing.studentIsExistInGroupList(null);
+            var result2 = GroupManagement.testing.studentIsExistInGroupList(undefined);
+
+            chai.assert.equal(result1 || result2, false);
+        });
+    });
+
+    describe('removeDeletedSubgroupsFromList()', function() {
+        it('expected non throw some errors', function() {
+            chai.expect(GroupManagement.testing.removeDeletedSubgroupsFromList).to.not.throw(Error);
+        });
+    });
+
+    describe('transformDataToMultiSelectListItems()', function() {
+        it('should return null if passed parameter is undefined', function() {
+            var result = GroupManagement.testing.transformDataToMultiSelectListItem(null);
+
+            chai.assert.equal(result, null);
+        });
+
+        it('should return null if passed parameter is not array', function() {
+            var result = GroupManagement.testing.transformDataToMultiSelectListItem({});
+
+            chai.assert.equal(result, null);
+        });
+
+        it('should return array if passed parameter is array', function() {
+            var result = GroupManagement.testing.transformDataToMultiSelectListItem([]);
+
+            chai.assert.equal(Array.isArray(result), true);
+        });
+    });
+
+    describe('getRemoteResultsByStudentName()', function() {
+        it('should return array of results if passed parameter contained in student names', function() {
+            var results = GroupManagement.testing.getRemoteResultsByStudentName('Паш');
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length > 0, true);
+        });
+
+        it('the results should contains search pattern in student names', function() {
+            var results = GroupManagement.testing.getRemoteResultsByStudentName('Паш');
+
+            var fail = ko.utils.arrayFirst(results, function(result) {
+                return result.name.indexOf('Паш') === -1;
+            });
+
+            chai.assert.equal(fail, null);
+        });
+
+        it('should return empty array if passed parameter not contained in student names', function() {
+            var results = GroupManagement.testing.getRemoteResultsByStudentName('Geralt from Rivia');
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length === 0, true);
+        });
+
+        it('should return empty array if passed parameter is undefined', function() {
+            var results = GroupManagement.testing.getRemoteResultsByStudentName(null);
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length === 0, true);
+        });
+    });
+
+    describe('getRemoteResultsByGroupNumber()', function() {
+        it('should return array of results if passed parameter contained in group numbers', function() {
+            var results = GroupManagement.testing.getRemoteResultsByGroupNumber('3505');
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length > 0, true);
+        });
+
+        it('the results should contains search pattern in group numbers', function() {
+            var results = GroupManagement.testing.getRemoteResultsByGroupNumber('3505');
+
+            var fail = ko.utils.arrayFirst(results, function(result) {
+                return result.group.indexOf('3505') === -1;
+            });
+
+            chai.assert.equal(fail, null);
+        });
+
+        it('should return empty array if passed parameter not contained in group numbers', function() {
+            var results = GroupManagement.testing.getRemoteResultsByGroupNumber('09812323455662');
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length === 0, true);
+        });
+
+        it('should return empty array if passed parameter is undefined', function() {
+            var results = GroupManagement.testing.getRemoteResultsByGroupNumber(null);
+
+            chai.assert.equal(Array.isArray(results), true);
+            chai.assert.equal(results.length === 0, true);
+        });
+    });
+});

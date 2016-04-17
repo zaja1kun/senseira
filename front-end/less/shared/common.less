@@ -28,7 +28,7 @@
     display: none;
 }
 
-.filters-group {
+.header-group {
     padding: (@mainOffset / 2) (@mainOffset + @mainColumnOffset);
     background-color: @footerAndHeaderBackground;
     border-bottom: 1px solid @footerAndHeaderBorderColor;
@@ -45,3 +45,45 @@
     -ms-user-select: none; /* IE10+ */
 }
 
+.tag-list {
+    padding: 5px 0;
+
+    .tag {
+        display: inline-block;
+        padding: 2px 5px;
+
+        font-size: 15px;
+
+        background-color: #497BC7;
+        color: white;
+        border-radius: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        .tag-name {
+            display: inline-block;
+            vertical-align: middle;
+            min-width: 30px;
+            padding-right: 5px;
+
+            text-align: center;
+        }
+
+        .tag-delete-button {
+            display: inline-block;
+            vertical-align: middle;
+
+            cursor: pointer;
+        }
+
+        .tag-delete-button:hover {
+            color: darken(white, 20%);
+        }
+
+        .tag-delete-button:active {
+            color: darken(white, 10%);
+        }
+    }
+}

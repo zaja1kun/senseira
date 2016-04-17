@@ -1,0 +1,32 @@
+<script id="subgroupAddingModalTemplate" type="text/html">
+    <div id="subgroupAddingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="taskAddingModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Создание подгруппы</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="alert alert-danger activatable-element" data-bind="css: { 'active' : isValidationErrorsExists() }">
+                            <ul data-bind="foreach: validationErrors">
+                                <li data-bind="text: $data"></li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label for="subgroupName" class="control-label">Название подгруппы:</label>
+                            <input id="subgroupName"
+                                   type="text"
+                                   class="form-control"
+                                   data-bind="value: subgroupName"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer clearfix">
+                    <button type="button" class="btn btn-primary" data-bind="click: addSubgroup">Создать</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

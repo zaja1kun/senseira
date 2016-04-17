@@ -31,9 +31,13 @@
 .numeric-list{padding-left:15px}.numeric-list .numeric-list-item{display:list-item;list-style:decimal}
 .activatable-element{display:none}.activatable-element.active{display:block}
 #alertList,#validationErrorsList{display:none}
-.filters-group{padding:10px 35px;background-color:#f5f5f5;border-bottom:1px solid #ddd}
+.header-group{padding:10px 35px;background-color:#f5f5f5;border-bottom:1px solid #ddd}
 .inline-container{display:inline-block}
 .no-selection{-webkit-user-select:none;-moz-user-select:none;-khtml-user-select:none;-ms-user-select:none;}
+.tag-list{padding:5px 0}.tag-list .tag{display:inline-block;padding:2px 5px;font-size:15px;background-color:#497BC7;color:white;border-radius:20px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.tag-list .tag .tag-name{display:inline-block;vertical-align:middle;min-width:30px;padding-right:5px;text-align:center}
+.tag-list .tag .tag-delete-button{display:inline-block;vertical-align:middle;cursor:pointer}
+.tag-list .tag .tag-delete-button:hover{color:#ccc}
+.tag-list .tag .tag-delete-button:active{color:#e6e6e6}
 
 
 
@@ -53,6 +57,13 @@
 #greetingView .system-work-examples{padding:20px;text-align:center}#greetingView .system-work-examples .example{display:inline-block;padding:0 30px 0 30px}#greetingView .system-work-examples .example .example-image.img-thumbnail{background-color:#22406e}
 #greetingView .system-work-examples .example .example-image:hover{transform:scale(1.15, 1.15)}
 @media screen and (max-width:1200px){#greetingView .system-work-examples .example{display:block;padding-top:20px}}
+
+.input-group.search-input-group{padding-right:10px;float:left}
+.header-group .group-number{padding:0 0 0 25px}.header-group .group-number .group-number-text{padding-top:5px;text-align:center;font-size:20px}
+#listEditingModal .students-group-list{max-height:300px;overflow-y:auto}
+#groupManagementView.group-management-container{padding:20px}#groupManagementView.group-management-container .search-results-list{max-height:540px;overflow-y:auto}
+#groupManagementView.group-management-container .buttons-container{padding:10px 0}
+#groupManagementView.group-management-container .control-label{padding-left:15px;padding-top:0}
 
 #labsIssuanceView.labs-issuance-container{padding:20px}#labsIssuanceView.labs-issuance-container .control-label{padding-left:15px;padding-top:0}
 #labsIssuanceView.labs-issuance-container .task-adding-button-container{padding:10px 0}

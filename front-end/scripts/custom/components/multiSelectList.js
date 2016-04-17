@@ -138,7 +138,7 @@ Senseira.constructors.MultiSelectList = (function(ko, $) {
         self.getIdOfSelectedItems = function() {
             var result = [];
 
-            ko.utils.arrayForEach(self.listOfVisibleItems(), function(item) {
+            ko.utils.arrayForEach(self.listItems(), function(item) {
                 if (item.isSelected()) {
                     result.push(item.id);
                 }
