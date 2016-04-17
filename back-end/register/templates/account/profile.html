@@ -6,7 +6,19 @@
 {% endblock title %}
 
 {% block body_block %}
+
+{% if is_student %}
+<h2>You are student</h2>
+{% endif %}
+{% if is_teacher %}
+<h2>You are teacher</h2>
+{% endif %}
+{% if not is_student and not is_teacher %}
+<h2>You are magic unicorn</h2>
+{% endif %}
+
 <h1>Hello, {{ user.username }}</h1>
+
 <ul class="nav nav-tabs">
     <li>
         <a href="{% url 'account_change_password' %}">Change Password</a>
