@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'greeting',
     'core',
     'widget_tweaks',
+    'smart_save',
 
     # allauth applications
     'allauth',

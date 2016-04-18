@@ -1,23 +1,21 @@
 from django.test import TestCase
-from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from .models import Student, Teacher, Group, Subject, Task, Variant
 
 
-def raises_integrity_error(test_case, model):
-    with test_case.assertRaises(IntegrityError):
-        model.save()
+def fails_to_save(test_case, model):
+    test_case.assertFalse(model.save_if_valid())
 
 
 class StudentTestCase(TestCase):
     def setUp(self):
         self.student = Student()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.student)
+    def fails_to_save(self):
+        fails_to_save(self, self.student)
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_filled(self):
         user = User.objects.create()
@@ -29,11 +27,11 @@ class TeacherTestCase(TestCase):
     def setUp(self):
         self.teacher = Teacher()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.teacher)
+    def fails_to_save(self):
+        fails_to_save(self, self.teacher)
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_filled(self):
         user = User.objects.create()
@@ -45,8 +43,8 @@ class GroupTestCase(TestCase):
     def setUp(self):
         self.group = Group()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.group)
+    def fails_to_save(self):
+        fails_to_save(self, self.group)
 
     def fill_group_name(self):
         self.group.group_name = '350501'
@@ -57,15 +55,15 @@ class GroupTestCase(TestCase):
         self.group.monitor = monitor
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_name(self):
         self.fill_group_name()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_monitor(self):
         self.fill_monitor()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_filled(self):
         self.fill_monitor()
@@ -77,8 +75,8 @@ class SubjectTestCase(TestCase):
     def setUp(self):
         self.subject = Subject()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.subject)
+    def fails_to_save(self):
+        fails_to_save(self, self.subject)
 
     def fill_name(self):
         self.subject.name = 'ТРиТПО'
@@ -101,10 +99,10 @@ class SubjectTestCase(TestCase):
         self.fill_group()
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_name(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_get_full_name(self):
         self.fill_all()
@@ -122,8 +120,8 @@ class TaskTestCase(TestCase):
     def setUp(self):
         self.task = Task()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.task)
+    def fails_to_save(self):
+        fails_to_save(self, self.task)
 
     def fill_name(self):
         self.task.name = 'Написать юнит-тесты.'
@@ -152,19 +150,19 @@ class TaskTestCase(TestCase):
         self.fill_description()
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_name(self):
         self.fill_name()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_description(self):
         self.fill_description()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_subject(self):
         self.fill_subject()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_filled(self):
         self.fill_all()
@@ -175,8 +173,8 @@ class VariantTestCase(TestCase):
     def setUp(self):
         self.variant = Variant()
 
-    def raises_integrity_error(self):
-        raises_integrity_error(self, self.variant)
+    def fails_to_save(self):
+        fails_to_save(self, self.variant)
 
     def fill_task(self):
         user = User.objects.create(first_name='Наталья', last_name='Искра')
@@ -215,23 +213,23 @@ class VariantTestCase(TestCase):
         self.fill_is_passed()
 
     def test_create_empty(self):
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_task(self):
         self.fill_task()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_description(self):
         self.fill_description()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_student(self):
         self.fill_student()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_with_is_passed(self):
         self.fill_is_passed()
-        self.raises_integrity_error()
+        self.fails_to_save()
 
     def test_create_filled(self):
         self.fill_all()
