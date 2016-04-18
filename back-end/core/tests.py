@@ -1,10 +1,56 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Student, Teacher, Group, Subject, Task, Variant
+from random import choice
+from string import ascii_letters, digits
+
+ASCII = ascii_letters + digits
+
+
+def random_alphanumeric(size=6):
+    result = ''
+    for _ in range(size):
+        result += choice(ASCII)
+    return result
 
 
 def fails_to_save(test_case, model):
     test_case.assertFalse(model.save_if_valid())
+
+
+def create_user():
+    return User.objects.create(username=random_alphanumeric())
+
+
+def create_student():
+    return Student.objects.create(user=create_user())
+
+
+def create_teacher():
+    return Teacher.objects.create(user=create_user())
+
+
+def create_group():
+    return Group.objects.create(
+        group_name=random_alphanumeric(),
+        monitor=create_student()
+    )
+
+
+def create_subject():
+    return Subject.objects.create(
+        group=create_group(),
+        name=random_alphanumeric(),
+        teacher=create_teacher()
+    )
+
+
+def create_task():
+    return Task.objects.create(
+        name=random_alphanumeric(),
+        subject=create_subject(),
+        description=random_alphanumeric()
+    )
 
 
 class StudentTestCase(TestCase):
@@ -18,8 +64,7 @@ class StudentTestCase(TestCase):
         self.fails_to_save()
 
     def test_create_filled(self):
-        user = User.objects.create()
-        self.student.user = user
+        self.student.user = create_user()
         self.student.save()
 
 
@@ -34,8 +79,7 @@ class TeacherTestCase(TestCase):
         self.fails_to_save()
 
     def test_create_filled(self):
-        user = User.objects.create()
-        self.teacher.user = user
+        self.teacher.user = create_user()
         self.teacher.save()
 
 
@@ -47,12 +91,10 @@ class GroupTestCase(TestCase):
         fails_to_save(self, self.group)
 
     def fill_group_name(self):
-        self.group.group_name = '350501'
+        self.group.group_name = random_alphanumeric()
 
     def fill_monitor(self):
-        user = User.objects.create(username='vmakoed')
-        monitor = Student.objects.create(user=user)
-        self.group.monitor = monitor
+        self.group.monitor = create_student()
 
     def test_create_empty(self):
         self.fails_to_save()
@@ -79,19 +121,13 @@ class SubjectTestCase(TestCase):
         fails_to_save(self, self.subject)
 
     def fill_name(self):
-        self.subject.name = 'ТРиТПО'
+        self.subject.name = random_alphanumeric()
 
     def fill_teacher(self):
-        user = User.objects.create(first_name='Наталья', last_name='Искра')
-        self.subject.teacher = Teacher.objects.create(user=user)
+        self.subject.teacher = create_teacher()
 
     def fill_group(self):
-        user = User.objects.create(username='vmakoed')
-        monitor = Student.objects.create(user=user)
-        self.subject.group = Group.objects.create(
-            group_name='350501',
-            monitor=monitor
-        )
+        self.subject.group = create_group()
 
     def fill_all(self):
         self.fill_name()
@@ -103,13 +139,6 @@ class SubjectTestCase(TestCase):
 
     def test_create_with_name(self):
         self.fails_to_save()
-
-    def test_get_full_name(self):
-        self.fill_all()
-        self.assertEqual(
-            self.subject.get_full_name(),
-            '350501 ТРиТПО - Наталья Искра'
-        )
 
     def test_create_filled(self):
         self.fill_all()
@@ -124,25 +153,13 @@ class TaskTestCase(TestCase):
         fails_to_save(self, self.task)
 
     def fill_name(self):
-        self.task.name = 'Написать юнит-тесты.'
+        self.task.name = random_alphanumeric()
 
     def fill_subject(self):
-        user = User.objects.create(first_name='Наталья', last_name='Искра')
-        teacher = Teacher.objects.create(user=user)
-        user = User.objects.create(username='vmakoed')
-        monitor = Student.objects.create(user=user)
-        group = Group.objects.create(
-            group_name='350501',
-            monitor=monitor
-        )
-        self.task.subject = Subject.objects.create(
-            group=group,
-            name='ТРиТПО',
-            teacher=teacher
-        )
+        self.task.subject = create_subject()
 
     def fill_description(self):
-        self.task.description = 'Написать юнит-тесты для бэкенда и фронтенда.'
+        self.task.description = random_alphanumeric()
 
     def fill_all(self):
         self.fill_name()
@@ -177,31 +194,13 @@ class VariantTestCase(TestCase):
         fails_to_save(self, self.variant)
 
     def fill_task(self):
-        user = User.objects.create(first_name='Наталья', last_name='Искра')
-        teacher = Teacher.objects.create(user=user)
-        user = User.objects.create(username='vmakoed')
-        monitor = Student.objects.create(user=user)
-        group = Group.objects.create(
-            group_name='350501',
-            monitor=monitor
-        )
-        subject = Subject.objects.create(
-            group=group,
-            name='ТРиТПО',
-            teacher=teacher
-        )
-        self.variant.task = Task.objects.create(
-            name='Написать юнит-тесты.',
-            subject=subject,
-            description='Написать юнит-тесты для бэкенда и фронтенда.'
-        )
+        self.variant.task = create_task()
 
     def fill_description(self):
-        self.variant.description = 'Написать юнит-тесты для бэкенда.'
+        self.variant.description = random_alphanumeric()
 
     def fill_student(self):
-        user = User.objects.create(username='dtluna')
-        self.variant.student = Student.objects.create(user=user)
+        self.variant.student = create_student()
 
     def fill_is_passed(self):
         self.variant.is_passed = False
