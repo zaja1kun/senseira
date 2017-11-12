@@ -93,11 +93,17 @@ WSGI_APPLICATION = 'senseira.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('SENSEIRA_DB_NAME', 'senseira'),
+        'USER': 'root',
+        'PASSWORD': os.environ.get('SENSEIRA_DB_PASSWORD', 'senseira'),
+        'HOST': os.environ.get('SENSEIRA_DB_HOST', 'senseira-db'),
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET default_storage_engine=MYISAM',
+        },
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
